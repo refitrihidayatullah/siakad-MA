@@ -63,6 +63,7 @@ class Admin extends CI_Controller
             $data = array(
                 'nama_siswa' => $nama_siswa,
                 'nis_siswa' => $nis_siswa,
+                'username' => $nis_siswa,
                 'email_siswa' => $email_siswa,
                 'password' => $password_siswa,
                 'tempat_lahir_siswa' => $tempat_lahir_siswa,
@@ -129,7 +130,8 @@ class Admin extends CI_Controller
             $data = array(
                 'id_siswa'  => htmlspecialchars($this->input->post('id_siswa')),
                 'nama_siswa' => htmlspecialchars($this->input->post('nama_siswa')),
-                'nis_siswa' => htmlspecialchars($this->input->post('nis_siswa')),
+                'nis_siswa' => $username = htmlspecialchars($this->input->post('nis_siswa')),
+                'username' => $username,
                 'email_siswa' => htmlspecialchars($this->input->post('email_siswa')),
                 'tempat_lahir_siswa' => htmlspecialchars($this->input->post('tempat_lahir_siswa')),
                 'tanggal_lahir_siswa' => htmlspecialchars($this->input->post('tanggal_lahir_siswa')),
@@ -149,7 +151,8 @@ class Admin extends CI_Controller
                 $data = array(
                     'id_siswa'  => $id_sw = htmlspecialchars($this->input->post('id_siswa')),
                     'nama_siswa' => htmlspecialchars($this->input->post('nama_siswa')),
-                    'nis_siswa' => htmlspecialchars($this->input->post('nis_siswa')),
+                    'nis_siswa' => $username = htmlspecialchars($this->input->post('nis_siswa')),
+                    'username' => $username,
                     'email_siswa' => htmlspecialchars($this->input->post('email_siswa')),
                     'tempat_lahir_siswa' => htmlspecialchars($this->input->post('tempat_lahir_siswa')),
                     'tanggal_lahir_siswa' => htmlspecialchars($this->input->post('tanggal_lahir_siswa')),

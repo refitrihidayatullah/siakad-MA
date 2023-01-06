@@ -5,7 +5,6 @@
     <div class="card-body">
         <form method="POST" action="<?php echo base_url('index.php/admin/updateSiswa') ?>">
             <?php foreach ($siswa as $sw) {
-                var_dump($sw);
             ?>
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -69,7 +68,7 @@
 
                 <div class="form-group">
                     <label for="alamat_siswa">Alamat</label>
-                    <input type="text" class="form-control" id="alamat_siswa" name="alamat_siswa" placeholder="alamat.." required>
+                    <input type="text" class="form-control" id="alamat_siswa" value="<?php echo htmlspecialchars($sw->alamat_siswa) ?>" name="alamat_siswa" placeholder="alamat.." required>
                 </div>
                 <hr>
             <?php } ?>
