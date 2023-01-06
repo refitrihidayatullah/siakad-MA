@@ -14,6 +14,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>Nis</th>
                             <th>Nama</th>
                             <th>Jenis Kelamin</th>
@@ -23,23 +24,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                            <td>
-                                <div class=" d-flex justify-content-center">
-                                    <a href="#" class="btn btn-warning btn-sm btn-circle mr-4">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-danger btn-sm btn-circle mr-4">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
+                        <?php $no = 1;
+                        ?>
+                        <?php foreach ($siswa as $sw) {
+                        ?>
+                            <tr>
+                                <td><?php echo ($no++) ?></td>
+                                <td><?php echo htmlspecialchars($sw->nis_siswa) ?></td>
+                                <td><?php echo htmlspecialchars($sw->nama_siswa) ?></td>
+                                <td><?php echo htmlspecialchars($sw->jenis_kelamin_siswa) ?></td>
+                                <td><?php echo htmlspecialchars($sw->id_kelas) ?></td>
+                                <td><?php echo htmlspecialchars($sw->alamat_siswa) ?></td>
+                                <td>
+                                    <div class=" d-flex justify-content-center">
+                                        <a href="<?php echo base_url('Admin/editSiswa/' . $sw->id_siswa) ?>" class="btn btn-warning btn-sm btn-circle mr-4">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <a href="<?php echo base_url('Admin/hapusSiswa/') . $sw->id_siswa ?>" class="btn btn-danger btn-sm btn-circle mr-4">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            <?php } ?>
+                            </tr>
 
                     </tbody>
                 </table>
