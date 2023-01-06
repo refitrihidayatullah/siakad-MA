@@ -47,7 +47,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="id_kelas">kelas</label>
-                    <select id="id_kelas" name="isd_kelas" class="form-control">
+                    <select id="id_kelas" name="id_kelas" class="form-control">
                         <option selected>Pilih...</option>
                         <option>x pa</option>
                         <option>x p1</option>
