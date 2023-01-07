@@ -29,7 +29,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             Total Guru</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">25</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $dashboard_data_guru; ?></div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
