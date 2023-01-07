@@ -6,8 +6,10 @@ class Admin extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Siswa_model');
+        // $this->load->model('Siswa_model');
         $this->load->model('Guru_model');
+        $this->load->model('Data_model');
+        // $
     }
 
 
@@ -22,20 +24,91 @@ class Admin extends CI_Controller
     }
 
     // function siswa start
-    public function registerSiswa()
-    {
-        $data['title'] = "Registrasi Siswa";
-        $this->load->view('templates/header', $data);
-        $this->load->view('partials/admin/siswa/register_siswa_admin');
-        $this->load->view('templates/footer');
-    }
-
-    public function tambahSiswa()
+    public function registerSiswas()
     {
         $data['title'] = "Tambah Siswa";
         $this->load->view('templates/header', $data);
         $this->load->view('partials/admin/siswa/tambah_siswa_admin');
         $this->load->view('templates/footer');
+    }
+
+    public function registerSiswa()
+    {
+        // lakukan validasi terhadap inputan user
+        $this->form_validation->set_rules('nama_siswa', 'Nama Siswa', 'required');
+        $this->form_validation->set_rules('nis_siswa', 'NIS', 'required|is_unique[tb_siswa.nis_siswa]');
+        $this->form_validation->set_rules('email_siswa', 'Email Siswa', 'required');
+        $this->form_validation->set_rules('password_siswa', 'Password', 'required');
+        $this->form_validation->set_rules('tempat_lahir_siswa', 'Tempat Lahir', 'required');
+        $this->form_validation->set_rules('tanggal_lahir_siswa', 'Tanggal Lahir', 'required');
+        $this->form_validation->set_rules('jenis_kelamin_siswa', 'Jenis Kelamin', 'required');
+        $this->form_validation->set_rules('id_kelas');
+        $this->form_validation->set_rules('jurusan');
+        $this->form_validation->set_rules('alamat_siswa');
+        // fungsi input pada form validation
+        if ($this->form_validation->run() != false) {
+            $nama_siswa = htmlspecialchars($this->input->post('nama_siswa'));
+            $nis_siswa = htmlspecialchars($this->input->post('nis_siswa'));
+            $email_siswa = htmlspecialchars($this->input->post('email_siswa'));
+            $password_siswa = md5($this->input->post('password_siswa'));
+            $tempat_lahir_siswa = htmlspecialchars($this->input->post('tempat_lahir_siswa'));
+            $tanggal_lahir_siswa = htmlspecialchars($this->input->post('tanggal_lahir_siswa'));
+            $jenis_kelamin_siswa = htmlspecialchars($this->input->post('jenis_kelamin_siswa'));
+            $kelas_siswa = htmlspecialchars($this->input->post('id_kelas'));
+            $jurusan_siswa = htmlspecialchars($this->input->post('jurusan'));
+            $alamat_siswa = htmlspecialchars($this->input->post('alamat_siswa'));
+            // masukkan data ke dalam array
+
+            $data = array(
+                'nama_siswa' => $nama_siswa,
+                'nis_siswa' => $nis_siswa,
+                'username' => $nis_siswa,
+                'email_siswa' => $email_siswa,
+                'password' => $password_siswa,
+                'tempat_lahir_siswa' => $tempat_lahir_siswa,
+                'tanggal_lahir_siswa' => $tanggal_lahir_siswa,
+                'jenis_kelamin_siswa' => $jenis_kelamin_siswa,
+                'id_kelas' => $kelas_siswa,
+                'jurusan_siswa' => $jurusan_siswa,
+                'alamat_siswa' => $alamat_siswa
+
+            );
+            // langsung ambil model dari database insert siswa
+            $this->Data_model->insert_data($data, 'tb_siswa');
+            $data['title'] = "Registrasi Siswa";
+            $data['siswa'] = $this->Data_model->get_data('tb_siswa')->result();
+            $this->load->view('templates/header', $data);
+            $this->load->view('partials/admin/siswa/register_siswa_admin', $data);
+            $this->load->view('templates/footer');
+        } else {
+
+            $data['title'] = "Registrasi Siswa";
+            $data['siswa'] = $this->Data_model->get_data('tb_siswa')->result();
+            $this->load->view('templates/header', $data);
+            $this->load->view('partials/admin/siswa/register_siswa_admin', $data);
+            $this->load->view('templates/footer');
+        }
+    }
+    public function hapusSiswa($id)
+    {
+        $where = array(
+            'id_siswa' => $id
+        );
+        $this->Data_model->delete_data($where, 'tb_siswa');
+        redirect(base_url() . 'Admin/registerSiswa');
+
+        // ini fungsi hapus data siswa
+    }
+
+    public function editSiswa($id)
+    {
+        $where = array('id_siswa' => $id);
+        $data['siswa'] =  $this->Data_model->edit_data($where, 'tb_siswa')->result();
+        $data['title'] = "Edit Siswa";
+        $this->load->view('templates/header', $data);
+        $this->load->view('partials/admin/siswa/edit_siswa_admin', $data);
+        $this->load->view('templates/footer');
+        // }
     }
     // functiion siswa end
 

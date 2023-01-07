@@ -3,7 +3,7 @@
         Form Pendaftaran Siswa
     </div>
     <div class="card-body">
-        <form>
+        <form method="POST" action="<?php echo base_url('index.php/admin/RegisterSiswa') ?>">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="nama_siswa">Nama</label>
@@ -41,13 +41,13 @@
                     <label for="jenis_kelamin_siswa">Jenis Kelamin</label>
                     <select id="jenis_kelamin_siswa" name="jenis_kelamin_siswa" class="form-control">
                         <option selected>Pilih...</option>
-                        <option>L</option>
-                        <option>P</option>
+                        <option value="LAKI-LAKI">L</option>
+                        <option value="PEREMPUAN">P</option>
                     </select>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="id_kelas">kelas</label>
-                    <select id="id_kelas" name="isd_kelas" class="form-control">
+                    <select id="id_kelas" name="id_kelas" class="form-control">
                         <option selected>Pilih...</option>
                         <option>x pa</option>
                         <option>x p1</option>
@@ -66,10 +66,6 @@
             <div class="form-group">
                 <label for="alamat_siswa">Alamat</label>
                 <input type="text" class="form-control" id="alamat_siswa" name="alamat_siswa" placeholder="alamat.." required>
-            </div>
-            <div class="form-group">
-                <label for="foto_siswa">Foto</label>
-                <input type="file" class="form-control" id="foto_siswa" name="foto_siswa" placeholder="alamat.." required>
             </div>
             <hr>
 

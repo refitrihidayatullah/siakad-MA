@@ -12,13 +12,12 @@
     <title>admin - Dashboard</title>
 
     <!-- Custom fonts for this template-->
-    <link href="<?= base_url(); ?>assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url(''); ?>assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="<?= base_url(); ?>assets/css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="<?= base_url(); ?>assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link href="<?= base_url(); ?>assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
 </head>
 
 <body id="page-top">
@@ -31,10 +30,12 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                <!-- <img src="https://static.vecteezy.com/system/resources/previews/002/206/174/original/school-building-icon-free-vector.jpg" class="img-fluid" sizes="max-width = 50px" alt="..."> -->
+                <div class="sidebar-brand-icon">
+                    <img src="https://i.postimg.cc/tCwYcSrj/IMG-20230103-WA0014-removebg-preview-4.png" style="width: 50px;" alt="">
+                    <!-- <i class="fas fa-laugh-wink"></i> -->
                 </div>
-                <div class="sidebar-brand-text mx-3">SIAKAD MA</div>
+                <div class="sidebar-brand-text mx-3">Admin <sup>2</sup></div>
             </a>
 
             <!-- Divider -->
