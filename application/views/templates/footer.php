@@ -45,7 +45,9 @@
 </div>
 
 <!-- Bootstrap core JavaScript-->
-<script src="<?= base_url(); ?>assets/vendor/jquery/jquery.min.js"></script>
+<!-- <script src="<?= base_url(); ?>assets/vendor/jquery/jquery.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+
 <script src="<?= base_url(); ?>assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Core plugin JavaScript-->
@@ -65,6 +67,17 @@
 <!-- Page level custom scripts -->
 <script src="<?= base_url(); ?>assets/js/demo/chart-area-demo.js"></script>
 <script src="<?= base_url(); ?>assets/js/demo/chart-pie-demo.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('table.display1').DataTable();
+        $('table.display2').DataTable();
+        $('table.display3').DataTable();
+        $('table.display4').DataTable();
+
+    });
+</script>
 
 
 </body>

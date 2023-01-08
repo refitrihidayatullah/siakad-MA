@@ -17,6 +17,7 @@
 
     <!-- Custom styles for this template-->
     <link href="<?= base_url(); ?>assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css">
 
 </head>
 
@@ -35,7 +36,7 @@
                     <img src="https://i.postimg.cc/tCwYcSrj/IMG-20230103-WA0014-removebg-preview-4.png" style="width: 50px;" alt="">
                     <!-- <i class="fas fa-laugh-wink"></i> -->
                 </div>
-                <div class="sidebar-brand-text mx-3">Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">SIAKAD-MA</div>
             </a>
 
             <!-- Divider -->
@@ -68,11 +69,30 @@
                         <h6 class="collapse-header">Registrasi Siswa & Guru</h6>
                         <a class="collapse-item" href="<?= base_url(); ?>Admin/RegisterSiswa">Registrasi Siswa</a>
                         <a class="collapse-item" href="<?= base_url(); ?>Admin/RegisterGuru">Registrasi Guru</a>
-                        <a class="collapse-item" href="utilities-animation.html">Mapel Guru</a>
                     </div>
                 </div>
             </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
 
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Master
+            </div>
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#masterMapel" aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Master</span>
+                </a>
+                <div id="masterMapel" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Mapel & kelas</h6>
+                        <a class="collapse-item" href="<?= base_url(); ?>Admin/MasterMapel">Master Mapel</a>
+                        <a class="collapse-item" href="<?= base_url(); ?>Admin/RegisterGuru">Registrasi Guru</a>
+                    </div>
+                </div>
+            </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
 

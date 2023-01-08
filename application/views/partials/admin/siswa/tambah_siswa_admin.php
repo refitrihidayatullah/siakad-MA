@@ -11,7 +11,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="nis_siswa">Nis</label>
-                    <input type="number" class="form-control" id="nis_siswa" name="nis_siswa" placeholder="masukkan nis siswa.." required>
+                    <input type="text" class="form-control" id="nis_siswa" name="nis_siswa" maxlength="10" placeholder="masukkan nis siswa.." required>
                 </div>
             </div>
             <div class="form-row">

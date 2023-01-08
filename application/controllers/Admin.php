@@ -8,10 +8,14 @@ class Admin extends CI_Controller
         parent::__construct();
         // $this->load->model('Siswa_model');
         $this->load->model('Guru_model');
-        $this->load->model('Data_model');
+        $this->load->model('Siswa_model');
         // $
     }
 
+    public function test()
+    {
+        $this->load->view('v_coba');
+    }
 
     public function index()
     {
@@ -24,7 +28,7 @@ class Admin extends CI_Controller
     }
 
     // function siswa start
-    public function registerSiswas()
+    public function tambahSiswa()
     {
         $data['title'] = "Tambah Siswa";
         $this->load->view('templates/header', $data);
@@ -62,7 +66,6 @@ class Admin extends CI_Controller
             $data = array(
                 'nama_siswa' => $nama_siswa,
                 'nis_siswa' => $nis_siswa,
-                'username' => $nis_siswa,
                 'email_siswa' => $email_siswa,
                 'password' => $password_siswa,
                 'tempat_lahir_siswa' => $tempat_lahir_siswa,
@@ -74,16 +77,16 @@ class Admin extends CI_Controller
 
             );
             // langsung ambil model dari database insert siswa
-            $this->Data_model->insert_data($data, 'tb_siswa');
+            $this->Siswa_model->insert_data($data, 'tb_siswa');
             $data['title'] = "Registrasi Siswa";
-            $data['siswa'] = $this->Data_model->get_data('tb_siswa')->result();
+            $data['siswa'] = $this->Siswa_model->get_data('tb_siswa')->result();
             $this->load->view('templates/header', $data);
             $this->load->view('partials/admin/siswa/register_siswa_admin', $data);
             $this->load->view('templates/footer');
         } else {
 
             $data['title'] = "Registrasi Siswa";
-            $data['siswa'] = $this->Data_model->get_data('tb_siswa')->result();
+            $data['siswa'] = $this->Siswa_model->get_data('tb_siswa')->result();
             $this->load->view('templates/header', $data);
             $this->load->view('partials/admin/siswa/register_siswa_admin', $data);
             $this->load->view('templates/footer');
@@ -94,7 +97,7 @@ class Admin extends CI_Controller
         $where = array(
             'id_siswa' => $id
         );
-        $this->Data_model->delete_data($where, 'tb_siswa');
+        $this->Siswa_model->delete_data($where, 'tb_siswa');
         redirect(base_url() . 'Admin/registerSiswa');
 
         // ini fungsi hapus data siswa
@@ -103,7 +106,7 @@ class Admin extends CI_Controller
     public function editSiswa($id)
     {
         $where = array('id_siswa' => $id);
-        $data['siswa'] =  $this->Data_model->edit_data($where, 'tb_siswa')->result();
+        $data['siswa'] =  $this->Siswa_model->edit_data($where, 'tb_siswa')->result();
         $data['title'] = "Edit Siswa";
         $this->load->view('templates/header', $data);
         $this->load->view('partials/admin/siswa/edit_siswa_admin', $data);
@@ -242,7 +245,177 @@ class Admin extends CI_Controller
     public function deleteGuru($id_guru)
     {
         $this->Guru_model->deleteDataGuru($id_guru);
-        $this->session->set_flashdata('flash', 'Diedit');
+        $this->session->set_flashdata('flash', 'Didelete');
         redirect('Admin/registerGuru');
+    }
+
+
+    // master kelas
+    public function tambahKelas()
+    {
+        $this->form_validation->set_rules('nama_kelas', 'nama', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('flashs', 'Ditambahkan');
+            redirect('Admin/masterMapel');
+        } else {
+            $nama = htmlspecialchars($this->input->post('nama_kelas'));
+            $arrKelas = array(
+                'nama_kelas' => $nama
+            );
+            $this->Guru_model->insertDataKelas($arrKelas);
+            $this->session->set_flashdata('flash', 'Ditambahkan');
+            redirect('Admin/masterMapel');
+        }
+    }
+
+    // master mapel
+    public function masterMapel()
+    {
+        $data['title'] = "Master Mapel";
+        $data['getDataKelas'] = $this->Guru_model->getDataKelas();
+        $data['getDataJurusan'] = $this->Guru_model->getDataJurusan();
+        $data['getDataKategoriNilai'] = $this->Guru_model->getDataKategoriNilai();
+        $data['getDataMapel'] = $this->Guru_model->getDataMapel();
+        $this->load->view('templates/header', $data);
+        $this->load->view('partials/admin/mapel/master_mapel_admin', $data);
+        $this->load->view('templates/footer');
+    }
+    public function updateKelas()
+    {
+        $this->form_validation->set_rules('nama_kelas', 'nama', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('flashs', 'Diupdate');
+            redirect('Admin/masterMapel');
+        } else {
+            $nama = htmlspecialchars($this->input->post('nama_kelas'));
+            $id = htmlspecialchars($this->input->post('id_kelas'));
+
+            $this->Guru_model->updateDataKelas($nama, $id);
+            $this->session->set_flashdata('flash', 'Diupdate');
+            redirect('Admin/masterMapel');
+        }
+    }
+    public function deleteMasterKelas($id)
+    {
+        $this->Guru_model->deleteDataKelas($id);
+        $this->session->set_flashdata('flash', 'Didelete');
+        redirect('Admin/masterMapel');
+    }
+
+    public function tambahJurusan()
+    {
+        $this->form_validation->set_rules('nama_jurusan', 'nama', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('flashs', 'Ditambahkan');
+            redirect('Admin/masterMapel');
+        } else {
+            $nama = htmlspecialchars($this->input->post('nama_jurusan'));
+            $arrJurusan = array(
+                'nama_jurusan' => $nama
+            );
+            $this->Guru_model->insertDataJurusan($arrJurusan);
+            $this->session->set_flashdata('flash', 'Ditambahkan');
+            redirect('Admin/masterMapel');
+        }
+    }
+    public function updateJurusan()
+    {
+        $this->form_validation->set_rules('nama_jurusan', 'nama', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('flashs', 'Diupdate');
+            redirect('Admin/masterMapel');
+        } else {
+            $nama = htmlspecialchars($this->input->post('nama_jurusan'));
+            $id = htmlspecialchars($this->input->post('id_jurusan'));
+
+            $this->Guru_model->updateDataJurusan($nama, $id);
+            $this->session->set_flashdata('flash', 'Diupdate');
+            redirect('Admin/masterMapel');
+        }
+    }
+    public function deleteMasterJurusan($id)
+    {
+        $this->db->query("DELETE FROM tb_jurusan WHERE id_jurusan = $id");
+        $this->session->set_flashdata('flash', 'Didelete');
+        redirect('Admin/masterMapel');
+    }
+
+    // master kategori nilai
+    public function tambahKategoriNilai()
+    {
+        $this->form_validation->set_rules('nama_kategori_nilai', 'nama', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('flashs', 'Ditambahkan');
+            redirect('Admin/masterMapel');
+        } else {
+            $nama = htmlspecialchars($this->input->post('nama_kategori_nilai'));
+            $arrKategoriNilai = array(
+                'nama_kategori_nilai' => $nama
+            );
+            $this->Guru_model->insertDataKategoriNilai($arrKategoriNilai);
+            $this->session->set_flashdata('flash', 'Ditambahkan');
+            redirect('Admin/masterMapel');
+        }
+    }
+    public function updateKategoriNilai()
+    {
+        $this->form_validation->set_rules('nama_kategori_nilai', 'nama', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('flashs', 'Diupdate');
+            redirect('Admin/masterMapel');
+        } else {
+            $nama = htmlspecialchars($this->input->post('nama_kategori_nilai'));
+            $id = htmlspecialchars($this->input->post('id_kategori_nilai'));
+
+            $this->Guru_model->updateDataKategoriNilai($nama, $id);
+            $this->session->set_flashdata('flash', 'Diupdate');
+            redirect('Admin/masterMapel');
+        }
+    }
+    public function deleteMasterKategoriNilai($id)
+    {
+        $this->db->query("DELETE FROM tb_kategori_nilai WHERE id_kategori_nilai = $id");
+        $this->session->set_flashdata('flash', 'Didelete');
+        redirect('Admin/masterMapel');
+    }
+
+
+    // master mapel 
+    public function tambahMapel()
+    {
+        $this->form_validation->set_rules('nama_mapel', 'nama', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('flashs', 'Ditambahkan');
+            redirect('Admin/masterMapel');
+        } else {
+            $nama = htmlspecialchars($this->input->post('nama_mapel'));
+            $arrMapel = array(
+                'nama_mapel' => $nama
+            );
+            $this->Guru_model->insertDataMapel($arrMapel);
+            $this->session->set_flashdata('flash', 'Ditambahkan');
+            redirect('Admin/masterMapel');
+        }
+    }
+    public function updateMapel()
+    {
+        $this->form_validation->set_rules('nama_mapel', 'nama', 'required');
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('flashs', 'Diupdate');
+            redirect('Admin/masterMapel');
+        } else {
+            $nama = htmlspecialchars($this->input->post('nama_mapel'));
+            $id = htmlspecialchars($this->input->post('id_mapel'));
+
+            $this->Guru_model->updateDataMapel($nama, $id);
+            $this->session->set_flashdata('flash', 'Diupdate');
+            redirect('Admin/masterMapel');
+        }
+    }
+    public function deleteMasterMapel($id)
+    {
+        $this->db->query("DELETE FROM tb_mapel WHERE id_mapel='$id'");
+        $this->session->set_flashdata('flash', 'Didelete');
+        redirect('Admin/masterMapel');
     }
 }
