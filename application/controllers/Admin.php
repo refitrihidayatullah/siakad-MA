@@ -18,15 +18,20 @@ class Admin extends CI_Controller
             // }
             $data['title'] = "Dashboard";
             $data['dashboard_data_guru'] = $this->Guru_model->dashboard_get_total_guru();
+            $data['dashboard_data_siswa'] = $this->Guru_model->dashboard_get_total_siswa();
+            $data['dashboard_data_mapel'] = $this->Guru_model->dashboard_get_total_mapel();
             $data['session_data'] = $this->session->userdata();
             // var_dump($data['dashboard_data_guru']);
             $this->load->view('templates/header', $data);
             $this->load->view('partials/admin/dashboard_admin', $data);
             $this->load->view('templates/footer');
         } else {
+            $dt_sess_id_siswa = $this->session->userdata('id_siswa');
+            $dt_sess_id_kelas = $this->session->userdata('id_kelas');
+            $dt_sess_id_jurusan = $this->session->userdata('id_jurusan');
             $data['title'] = "Dashboard Siswa";
 
-            $data['get_data_jadwal_mapel'] = $this->Siswa_model->get_data_all_jadwal_mapel();
+            $data['get_data_jadwal_mapel'] = $this->Siswa_model->get_data_all_jadwal_mapel($dt_sess_id_siswa, $dt_sess_id_kelas, $dt_sess_id_jurusan);
             $data['get_data_absen_siswa'] = $this->Siswa_model->getDataAbsenSiswa();
             $data['cek_data_absen_siswa'] = $this->Siswa_model->cekDataAbsenSiswa();
 
@@ -673,6 +678,34 @@ class Admin extends CI_Controller
         } else {
             $this->Guru_model->insertNilai($arrNilai, $id_siswa, $id_mapel);
             $this->session->set_flashdata('flash', 'Ditambahkan');
+            redirect('Admin/penilaianSiswa');
+        }
+    }
+    public function updatePenilaianSiswa()
+    {
+        $id_penilaian_siswa = $this->input->post('id_penilaian_siswa');
+        $id_siswa = $this->input->post('id_siswa');
+        $id_mapel = $this->input->post('id_mapel');
+        $nilai = $this->input->post('nilai');
+        $id_kategori_nilai = $this->input->post('id_kategori_nilai');
+        $tanggal_penilaian = date('Y-m-d');
+
+        $arrUpdateNilai =
+            [
+                'id_penilaian_siswa' => $id_penilaian_siswa,
+                'id_siswa' => $id_siswa,
+                'id_mapel' => $id_mapel,
+                'nilai' => $nilai,
+                'id_kategori_nilai' => $id_kategori_nilai,
+                'tanggal_penilaian' => $tanggal_penilaian
+            ];
+        $checkDataNilaiUpdate = $this->Guru_model->checkdatanilaiupdate($id_siswa, $id_mapel);
+        if ($checkDataNilaiUpdate > 0) {
+            $this->session->set_flashdata('updates', 'ada');
+            redirect('Admin/penilaianSiswa');
+        } else {
+            $this->Guru_model->updateNilai($arrUpdateNilai, $id_penilaian_siswa);
+            $this->session->set_flashdata('update', 'Diubah');
             redirect('Admin/penilaianSiswa');
         }
     }

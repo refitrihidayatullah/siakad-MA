@@ -76,6 +76,30 @@
 </div>
 
 
+<?php if ($this->session->flashdata('update')) : ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Penilaian <strong>Berhasil</strong> <?= $this->session->flashdata('update'); ?>.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+<?php if ($this->session->flashdata('updates')) : ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Data Penilaian <strong>Sudah</strong> <?= $this->session->flashdata('updates'); ?>.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
 
 
 
@@ -152,11 +176,11 @@ foreach ($tampil_nilai_siswa as $tmpl_nilai) : $no++;  ?>
                     </button>
                 </div>
                 <div class="modal-body mr-3 ml-3">
-                    <form method="POST" action="<?php echo base_url() . 'Admin/updateJurusan/' ?>">
+                    <form method="POST" action="<?php echo base_url() . 'Admin/updatePenilaianSiswa/' ?>">
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <input type="text" name="id_penilaian_siswa" value="<?= $tmpl_nilai['id_penilaian_siswa']; ?>">
-                                <input type="text" name="id_siswa" value="<?= $tmpl_nilai['id_siswa']; ?>">
+                                <input type="hidden" name="id_penilaian_siswa" value="<?= $tmpl_nilai['id_penilaian_siswa']; ?>">
+                                <input type="hidden" name="id_siswa" value="<?= $tmpl_nilai['id_siswa']; ?>">
                                 <label for="nama_siswa">Nama Siswa</label>
                                 <input type="text" class="form-control" id="nama_siswa" value="<?= $tmpl_nilai['nama_siswa']; ?>" name="nama_siswa" placeholder="masukkan nama siswa..">
                                 <?= form_error('nama_jurusan');  ?>
@@ -178,6 +202,10 @@ foreach ($tampil_nilai_siswa as $tmpl_nilai) : $no++;  ?>
                                         <option value="<?= $get_mapel['id_mapel']; ?>"><?= $get_mapel['nama_mapel']; ?></option>
                                     <?php } ?>
                                 </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="nilai">Nilai</label>
+                                <input type="number" class="form-control" id="nilai" value="<?= $tmpl_nilai['nilai']; ?>" name="nilai" required>
                             </div>
 
                         </div>

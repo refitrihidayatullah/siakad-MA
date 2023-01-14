@@ -19,7 +19,18 @@ class Guru_model extends CI_Model
 
         // $this->db->where('id_hak_akses != 1');
     }
-
+    public function dashboard_get_total_siswa()
+    {
+        $this->db->select('*');
+        $this->db->from('tb_siswa');
+        return $this->db->count_all_results();
+    }
+    public function dashboard_get_total_mapel()
+    {
+        $this->db->select('*');
+        $this->db->from('tb_mapel');
+        return $this->db->count_all_results();
+    }
     public function get_role()
     {
         $sql = "SELECT * FROM tb_hak_akses WHERE id_hak_akses =2";
@@ -192,5 +203,14 @@ class Guru_model extends CI_Model
                                                tb_siswa ON tb_penilaian_siswa.id_siswa = tb_siswa.id_siswa LEFT JOIN
                                                tb_mapel ON tb_penilaian_siswa.id_mapel = tb_mapel.id_mapel LEFT JOIN
                                                tb_kategori_nilai ON tb_penilaian_siswa.id_kategori_nilai = tb_kategori_nilai.id_kategori_nilai")->result_array();
+    }
+    public function updateNilai($arrUpdateNilai, $id_penilaian_siswa)
+    {
+        $sql = "UPDATE tb_penilaian_siswa SET id_penilaian_siswa=?,id_siswa=?,id_mapel=?,nilai=?,id_kategori_nilai=?,tanggal_penilaian=? WHERE id_penilaian_siswa=$id_penilaian_siswa";
+        $this->db->query($sql, $arrUpdateNilai);
+    }
+    public function checkdatanilaiupdate($id_siswa, $id_mapel)
+    {
+        return $this->db->query("SELECT * FROM tb_penilaian_siswa WHERE id_siswa = $id_siswa AND id_mapel = $id_mapel")->num_rows();
     }
 }

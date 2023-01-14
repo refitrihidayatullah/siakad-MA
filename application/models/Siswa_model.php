@@ -74,14 +74,14 @@ class Siswa_model extends CI_Model
     // AKHIR FUNGSI CRUD
 
     // dashboard siswa first
-    function get_data_all_jadwal_mapel()
+    function get_data_all_jadwal_mapel($dt_sess_id_siswa, $dt_sess_id_kelas, $dt_sess_id_jurusan)
     {
         $sql = "SELECT * FROM tb_jadwal_mapel LEFT JOIN
                               tb_guru ON tb_jadwal_mapel.id_guru = tb_guru.id_guru LEFT JOIN
                               tb_kelas ON tb_jadwal_mapel.id_kelas = tb_kelas.id_kelas LEFT JOIN
                               tb_jurusan ON tb_jadwal_mapel.id_jurusan = tb_jurusan.id_jurusan LEFT JOIN
                               tb_mapel ON tb_jadwal_mapel.id_mapel = tb_mapel.id_mapel LEFT JOIN
-                              tb_kategori_nilai ON tb_jadwal_mapel.id_kategori_nilai = tb_kategori_nilai.id_kategori_nilai";
+                              tb_kategori_nilai ON tb_jadwal_mapel.id_kategori_nilai = tb_kategori_nilai.id_kategori_nilai WHERE tb_jadwal_mapel.id_kelas = $dt_sess_id_kelas AND tb_jadwal_mapel.id_jurusan = $dt_sess_id_jurusan ";
         return $this->db->query($sql)->result_array();
     }
     // absen siswa

@@ -23,10 +23,12 @@ class Auth extends CI_Controller
     private function _login()
     {
         $username = htmlspecialchars($this->input->post('username'));
-        $password = htmlspecialchars(md5($this->input->post('password')));
+        $password = md5($this->input->post('password'));
 
-        $cek_nis_siswa = $this->db->query("SELECT * FROM tb_siswa WHERE nis_siswa = $username")->num_rows();
-        $cek_nip_guru  = $this->db->query("SELECT * FROM tb_guru WHERE nip_guru = $username")->num_rows();
+        $cek_nis_siswa = $this->db->query("SELECT * FROM tb_siswa WHERE nis_siswa=$username AND password_siswa='$password';")->num_rows();
+
+        $cek_nip_guru  = $this->db->query("SELECT * FROM tb_guru WHERE nip_guru = $username AND password_guru = $password")->num_rows();
+
         // ambil data
         $get_data_siswa = $this->db->query("SELECT * FROM tb_siswa WHERE nis_siswa = $username")->row();
         $get_data_guru = $this->db->query("SELECT * FROM tb_guru WHERE nip_guru = $username")->row();
@@ -47,6 +49,8 @@ class Auth extends CI_Controller
                 $data_session_siswa = [
                     'id_siswa' => $get_data_siswa->{'id_siswa'},
                     'nama_siswa' => $get_data_siswa->{'nama_siswa'},
+                    'id_kelas' => $get_data_siswa->{'id_kelas'},
+                    'id_jurusan' => $get_data_siswa->{'id_jurusan'},
                     'id_hak_akses' => $get_data_siswa->{'id_hak_akses'}
                 ];
                 $this->session->set_userdata($data_session_siswa);
