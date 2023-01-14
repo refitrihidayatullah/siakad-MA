@@ -9,87 +9,107 @@ class Admin extends CI_Controller
         // $this->load->model('Siswa_model');
         $this->load->model('Guru_model');
         $this->load->model('Siswa_model');
-        // $
     }
-
-    public function test()
-    {
-        $this->load->view('v_coba');
-    }
-
     public function index()
     {
-        $data['title'] = "Dashboard";
-        $data['dashboard_data_guru'] = $this->Guru_model->dashboard_get_total_guru();
-        // var_dump($data['dashboard_data_guru']);
-        $this->load->view('templates/header', $data);
-        $this->load->view('partials/admin/dashboard_admin', $data);
-        $this->load->view('templates/footer');
+        $dt_sess = $this->session->userdata('id_hak_akses');
+        if ($dt_sess == 1 || $dt_sess == 2) {
+
+            // }
+            $data['title'] = "Dashboard";
+            $data['dashboard_data_guru'] = $this->Guru_model->dashboard_get_total_guru();
+            $data['session_data'] = $this->session->userdata();
+            // var_dump($data['dashboard_data_guru']);
+            $this->load->view('templates/header', $data);
+            $this->load->view('partials/admin/dashboard_admin', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data['title'] = "Dashboard Siswa";
+
+            $data['get_data_jadwal_mapel'] = $this->Siswa_model->get_data_all_jadwal_mapel();
+            $data['get_data_absen_siswa'] = $this->Siswa_model->getDataAbsenSiswa();
+            $data['cek_data_absen_siswa'] = $this->Siswa_model->cekDataAbsenSiswa();
+
+
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('partials/siswa/dashboard_siswa', $data);
+            $this->load->view('templates/footer');
+        }
     }
 
     // function siswa start
-    public function tambahSiswa()
+    public function registerSiswa()
     {
-        $data['title'] = "Tambah Siswa";
+        $data['title'] = "Registrasi Siswa";
+        $data['siswa'] = $this->Siswa_model->get_data_all();
         $this->load->view('templates/header', $data);
-        $this->load->view('partials/admin/siswa/tambah_siswa_admin');
+        $this->load->view('partials/admin/siswa/register_siswa_admin', $data);
         $this->load->view('templates/footer');
     }
 
-    public function registerSiswa()
+    public function tambahSiswa()
+    {
+        $data['title'] = "Tambah Siswa";
+        $data['get_kelas'] = $this->Siswa_model->get_kelas_siswa();
+        $data['get_jurusan'] = $this->Siswa_model->get_jurusan_siswa();
+        $data['get_role'] = $this->Siswa_model->get_role_siswa();
+        $this->load->view('templates/header', $data);
+        $this->load->view('partials/admin/siswa/tambah_siswa_admin', $data);
+        $this->load->view('templates/footer');
+    }
+
+
+    public function func_tambah_siswa()
     {
         // lakukan validasi terhadap inputan user
-        $this->form_validation->set_rules('nama_siswa', 'Nama Siswa', 'required');
         $this->form_validation->set_rules('nis_siswa', 'NIS', 'required|is_unique[tb_siswa.nis_siswa]');
-        $this->form_validation->set_rules('email_siswa', 'Email Siswa', 'required');
         $this->form_validation->set_rules('password_siswa', 'Password', 'required');
+        $this->form_validation->set_rules('nama_siswa', 'Nama Siswa', 'required');
+        $this->form_validation->set_rules('email_siswa', 'Email Siswa', 'required');
+        $this->form_validation->set_rules('jenis_kelamin_siswa', 'Jenis Kelamin', 'required');
         $this->form_validation->set_rules('tempat_lahir_siswa', 'Tempat Lahir', 'required');
         $this->form_validation->set_rules('tanggal_lahir_siswa', 'Tanggal Lahir', 'required');
-        $this->form_validation->set_rules('jenis_kelamin_siswa', 'Jenis Kelamin', 'required');
-        $this->form_validation->set_rules('id_kelas');
-        $this->form_validation->set_rules('jurusan');
-        $this->form_validation->set_rules('alamat_siswa');
+        $this->form_validation->set_rules('alamat_siswa', 'Alamat', 'required');
+        $this->form_validation->set_rules('id_kelas', 'Kelas', 'required');
+        $this->form_validation->set_rules('id_jurusan', 'Jurusan', 'required');
+        $this->form_validation->set_rules('id_hak_akses');
         // fungsi input pada form validation
         if ($this->form_validation->run() != false) {
-            $nama_siswa = htmlspecialchars($this->input->post('nama_siswa'));
             $nis_siswa = htmlspecialchars($this->input->post('nis_siswa'));
-            $email_siswa = htmlspecialchars($this->input->post('email_siswa'));
             $password_siswa = md5($this->input->post('password_siswa'));
+            $nama_siswa = htmlspecialchars($this->input->post('nama_siswa'));
+            $email_siswa = htmlspecialchars($this->input->post('email_siswa'));
+            $jenis_kelamin_siswa = htmlspecialchars($this->input->post('jenis_kelamin_siswa'));
             $tempat_lahir_siswa = htmlspecialchars($this->input->post('tempat_lahir_siswa'));
             $tanggal_lahir_siswa = htmlspecialchars($this->input->post('tanggal_lahir_siswa'));
-            $jenis_kelamin_siswa = htmlspecialchars($this->input->post('jenis_kelamin_siswa'));
-            $kelas_siswa = htmlspecialchars($this->input->post('id_kelas'));
-            $jurusan_siswa = htmlspecialchars($this->input->post('jurusan'));
             $alamat_siswa = htmlspecialchars($this->input->post('alamat_siswa'));
+            $kelas_siswa = htmlspecialchars($this->input->post('id_kelas'));
+            $jurusan_siswa = htmlspecialchars($this->input->post('id_jurusan'));
+            $role = htmlspecialchars($this->input->post('id_hak_akses'));
             // masukkan data ke dalam array
 
             $data = array(
-                'nama_siswa' => $nama_siswa,
                 'nis_siswa' => $nis_siswa,
-                'email_siswa' => $email_siswa,
                 'password' => $password_siswa,
+                'nama_siswa' => $nama_siswa,
+                'email_siswa' => $email_siswa,
+                'jenis_kelamin_siswa' => $jenis_kelamin_siswa,
                 'tempat_lahir_siswa' => $tempat_lahir_siswa,
                 'tanggal_lahir_siswa' => $tanggal_lahir_siswa,
-                'jenis_kelamin_siswa' => $jenis_kelamin_siswa,
+                'alamat_siswa' => $alamat_siswa,
                 'id_kelas' => $kelas_siswa,
-                'jurusan_siswa' => $jurusan_siswa,
-                'alamat_siswa' => $alamat_siswa
+                'id_jurusan' => $jurusan_siswa,
+                'id_hak_akses' => $role
 
             );
             // langsung ambil model dari database insert siswa
             $this->Siswa_model->insert_data($data, 'tb_siswa');
-            $data['title'] = "Registrasi Siswa";
-            $data['siswa'] = $this->Siswa_model->get_data('tb_siswa')->result();
-            $this->load->view('templates/header', $data);
-            $this->load->view('partials/admin/siswa/register_siswa_admin', $data);
-            $this->load->view('templates/footer');
+            $this->session->set_flashdata('flash', 'Ditambahkan');
+            redirect('Admin/registerSiswa');
         } else {
-
-            $data['title'] = "Registrasi Siswa";
-            $data['siswa'] = $this->Siswa_model->get_data('tb_siswa')->result();
-            $this->load->view('templates/header', $data);
-            $this->load->view('partials/admin/siswa/register_siswa_admin', $data);
-            $this->load->view('templates/footer');
+            $this->session->set_flashdata('flashs', 'Ditambahkan');
+            redirect('Admin/registerSiswa');
         }
     }
     public function hapusSiswa($id)
@@ -98,6 +118,7 @@ class Admin extends CI_Controller
             'id_siswa' => $id
         );
         $this->Siswa_model->delete_data($where, 'tb_siswa');
+        $this->session->set_flashdata('flash', 'Didelete');
         redirect(base_url() . 'Admin/registerSiswa');
 
         // ini fungsi hapus data siswa
@@ -105,13 +126,71 @@ class Admin extends CI_Controller
 
     public function editSiswa($id)
     {
-        $where = array('id_siswa' => $id);
-        $data['siswa'] =  $this->Siswa_model->edit_data($where, 'tb_siswa')->result();
+        // $where = array('id_siswa' => $id);
+        // $data['siswa'] =  $this->Siswa_model->edit_data($where, 'tb_siswa')->result();
+        $data['siswa_ById'] = $this->Siswa_model->get_siswa_ById($id);
+        $data['data_kelas'] = $this->Siswa_model->get_kelas_siswa();
+        $data['data_kelas_By_Id'] = $this->Siswa_model->get_kelas_siswa_ById($id);
+        $data['data_jenis_kelamin_By_Id'] = $this->Siswa_model->get_jenis_kelamin_siswa_ById($id);
+        $data['data_jurusan_By_Id'] = $this->Siswa_model->get_jurusan_siswa_ById($id);
+        $data['get_jurusan'] = $this->Siswa_model->get_jurusan_siswa();
         $data['title'] = "Edit Siswa";
         $this->load->view('templates/header', $data);
         $this->load->view('partials/admin/siswa/edit_siswa_admin', $data);
         $this->load->view('templates/footer');
-        // }
+    }
+    public function updateSiswa()
+    {
+        $this->form_validation->set_rules('nis_siswa', 'NIS', 'required');
+        // $this->form_validation->set_rules('password_siswa', 'Password', 'required');
+        $this->form_validation->set_rules('nama_siswa', 'Nama Siswa', 'required');
+        $this->form_validation->set_rules('email_siswa', 'Email Siswa', 'required');
+        $this->form_validation->set_rules('jenis_kelamin_siswa', 'Jenis Kelamin', 'required');
+        $this->form_validation->set_rules('tempat_lahir_siswa', 'Tempat Lahir', 'required');
+        $this->form_validation->set_rules('tanggal_lahir_siswa', 'Tanggal Lahir', 'required');
+        $this->form_validation->set_rules('alamat_siswa', 'Alamat', 'required');
+        $this->form_validation->set_rules('id_kelas', 'Kelas', 'required');
+        $this->form_validation->set_rules('id_jurusan', 'Jurusan', 'required');
+        // $this->form_validation->set_rules('id_hak_akses');
+        // fungsi input pada form validation
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('flashs', 'Diupdate');
+            redirect('Admin/registerSiswa');
+        } else {
+            $id_siswa = htmlspecialchars($this->input->post('id_siswa'));
+            $nis_siswa = htmlspecialchars($this->input->post('nis_siswa'));
+            // $password_siswa = md5($this->input->post('password_siswa'));
+            $nama_siswa = htmlspecialchars($this->input->post('nama_siswa'));
+            $email_siswa = htmlspecialchars($this->input->post('email_siswa'));
+            $jenis_kelamin_siswa = htmlspecialchars($this->input->post('jenis_kelamin_siswa'));
+            $tempat_lahir_siswa = htmlspecialchars($this->input->post('tempat_lahir_siswa'));
+            $tanggal_lahir_siswa = htmlspecialchars($this->input->post('tanggal_lahir_siswa'));
+            $alamat_siswa = htmlspecialchars($this->input->post('alamat_siswa'));
+            $kelas_siswa = htmlspecialchars($this->input->post('id_kelas'));
+            $jurusan_siswa = htmlspecialchars($this->input->post('id_jurusan'));
+            // $role = htmlspecialchars($this->input->post('id_hak_akses'));
+            // masukkan data ke dalam array
+            var_dump($id_siswa, $nis_siswa, $nama_siswa, $email_siswa, $jenis_kelamin_siswa, $tempat_lahir_siswa, $tanggal_lahir_siswa, $alamat_siswa, $kelas_siswa, $jurusan_siswa);
+
+            $data = array(
+                'nis_siswa' => $nis_siswa,
+                // 'password' => $password_siswa,
+                'nama_siswa' => $nama_siswa,
+                'email_siswa' => $email_siswa,
+                'jenis_kelamin_siswa' => $jenis_kelamin_siswa,
+                'tempat_lahir_siswa' => $tempat_lahir_siswa,
+                'tanggal_lahir_siswa' => $tanggal_lahir_siswa,
+                'alamat_siswa' => $alamat_siswa,
+                'id_kelas' => $kelas_siswa,
+                'id_jurusan' => $jurusan_siswa,
+                // 'id_hak_akses' => $role
+
+            );
+
+            $this->Siswa_model->updateDataSiswa($data, $id_siswa);
+            $this->session->set_flashdata('flash', 'Diupdate');
+            redirect('Admin/registerSiswa');
+        }
     }
     // functiion siswa end
 
@@ -417,5 +496,184 @@ class Admin extends CI_Controller
         $this->db->query("DELETE FROM tb_mapel WHERE id_mapel='$id'");
         $this->session->set_flashdata('flash', 'Didelete');
         redirect('Admin/masterMapel');
+    }
+
+
+
+    // master jadwal
+    public function masterJadwalMapel()
+    {
+        $data['title'] = "Jadwal Mata Pelajaran";
+        $data['get_data_guru'] = $this->Guru_model->getDataGuruJadwal();
+        $data['get_data_mapel'] = $this->Guru_model->getDataMapelJadwal();
+        $data['get_data_kelas'] = $this->Guru_model->getDataKelasJadwal();
+        $data['get_data_jurusan'] = $this->Guru_model->getDataJurusanJadwal();
+        $data['get_data_kategori'] = $this->Guru_model->getDataKategoriJadwal();
+        $data['get_data_all_jadwal'] = $this->Guru_model->getDataAllJadwal();
+
+
+        // edit
+        // $data['getDataJadwalMapel'] = $this->Guru_model->getDataJadwalMapel($id)->row();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('partials/admin/jadwal/jadwal_mapel_admin', $data);
+        $this->load->view('templates/footer');
+    }
+    public function tambahJadwalMapel()
+    {
+        $this->form_validation->set_rules('id_guru', 'nama guru', 'required');
+        $this->form_validation->set_rules('id_kelas', 'nama kelas', 'required');
+        $this->form_validation->set_rules('id_jurusan', 'nama jurusan', 'required');
+        $this->form_validation->set_rules('id_mapel', 'nama mapel', 'required');
+        $this->form_validation->set_rules('id_kategori_nilai', 'nama kategori', 'required');
+        $this->form_validation->set_rules('tanggal_jadwal', 'tanggal jadwal', 'required');
+        $this->form_validation->set_rules('jam_jadwal_mulai', 'jam jadwal mulai', 'required');
+        $this->form_validation->set_rules('jam_jadwal_akhir', 'jam jadwal akhir', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('flashs', 'Ditambahkan');
+            redirect('Admin/masterJadwalMapel');
+        } else {
+            $arrJadwal = [
+                'id_guru' => htmlspecialchars($this->input->post('id_guru')),
+                'id_kelas' => htmlspecialchars($this->input->post('id_kelas')),
+                'id_jurusan' => htmlspecialchars($this->input->post('id_jurusan')),
+                'id_mapel' => htmlspecialchars($this->input->post('id_mapel')),
+                'id_kategori_nilai' => htmlspecialchars($this->input->post('id_kategori_nilai')),
+                'tanggal_jadwal' => htmlspecialchars($this->input->post('tanggal_jadwal')),
+                'jam_jadwal_mulai' => htmlspecialchars($this->input->post('jam_jadwal_mulai')),
+                'jam_jadwal_akhir' => htmlspecialchars($this->input->post('jam_jadwal_akhir'))
+            ];
+
+            $this->Guru_model->insertJadwalMapel($arrJadwal);
+            $this->session->set_flashdata('flash', 'Ditambahkan');
+            redirect('Admin/masterJadwalMapel');
+        }
+    }
+    public function updateJadwalMapel()
+    {
+        $this->form_validation->set_rules('id_guru', 'nama guru', 'required');
+        $this->form_validation->set_rules('id_kelas', 'nama kelas', 'required');
+        $this->form_validation->set_rules('id_jurusan', 'nama jurusan', 'required');
+        $this->form_validation->set_rules('id_mapel', 'nama mapel', 'required');
+        $this->form_validation->set_rules('id_kategori_nilai', 'nama kategori', 'required');
+        $this->form_validation->set_rules('tanggal_jadwal', 'tanggal jadwal', 'required');
+        $this->form_validation->set_rules('jam_jadwal_mulai', 'jam jadwal mulai', 'required');
+        $this->form_validation->set_rules('jam_jadwal_akhir', 'jam jadwal akhir', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('flashs', 'Diupdate');
+            redirect('Admin/masterJadwalMapel');
+        } else {
+            $id_jadwal_mapel = $this->input->post('id_jadwal_mapel');
+            $arrJadwal = [
+                'id_guru' => htmlspecialchars($this->input->post('id_guru')),
+                'id_kelas' => htmlspecialchars($this->input->post('id_kelas')),
+                'id_jurusan' => htmlspecialchars($this->input->post('id_jurusan')),
+                'id_mapel' => htmlspecialchars($this->input->post('id_mapel')),
+                'id_kategori_nilai' => htmlspecialchars($this->input->post('id_kategori_nilai')),
+                'tanggal_jadwal' => htmlspecialchars($this->input->post('tanggal_jadwal')),
+                'jam_jadwal_mulai' => htmlspecialchars($this->input->post('jam_jadwal_mulai')),
+                'jam_jadwal_akhir' => htmlspecialchars($this->input->post('jam_jadwal_akhir'))
+            ];
+            $this->Guru_model->updateDataJadwalMapel($arrJadwal, $id_jadwal_mapel);
+            $this->session->set_flashdata('flash', 'Diupdate');
+            redirect('Admin/masterJadwalMapel');
+        }
+    }
+    public function jadwalMapel($id)
+    {
+        $cek = $this->db->query("SELECT * FROM tb_absen")->num_rows();
+        if ($cek > 0) {
+            $this->db->query("DELETE tb_jadwal_mapel, tb_absen FROM tb_jadwal_mapel JOIN tb_absen ON tb_jadwal_mapel.id_jadwal_mapel = tb_absen.id_jadwal_mapel WHERE tb_jadwal_mapel.id_jadwal_mapel = $id AND tb_absen.id_jadwal_mapel = $id");
+        } else {
+            $this->db->query("DELETE tb_jadwal_mapel FROM tb_jadwal_mapel WHERE id_jadwal_mapel = $id");
+        }
+        $this->session->set_flashdata('flash', 'Didelete');
+        redirect('Admin/masterJadwalMapel');
+    }
+
+    // absen siswa
+    public function func_absen_siswa()
+    {
+
+        $tanggal_absen = $this->input->post('tanggal_absen');
+        $waktu_absen = $this->input->post('waktu_absen');
+        $id_siswa = $this->input->post('id_siswa');
+        $id_jadwal_mapel = $this->input->post('id_jadwal_mapel');
+        $cek_absen = $this->db->query("SELECT * FROM tb_absen WHERE id_siswa = $id_siswa AND id_jadwal_mapel = $id_jadwal_mapel")->num_rows();
+        $arr_absen = [
+            'status_absen' => 1,
+            'tanggal_absen' => $tanggal_absen,
+            'waktu_absen' => $waktu_absen,
+            'id_siswa' => $id_siswa,
+            'id_jadwal_mapel' => $id_jadwal_mapel
+        ];
+
+        if ($cek_absen > 0) {
+            $this->session->set_flashdata('flashs', 'Absen');
+            redirect('Admin/index');
+        } else {
+            $this->Siswa_model->insertAbsenSiswa($arr_absen);
+            $this->session->set_flashdata('flash', 'Absen');
+            redirect('Admin/index');
+        }
+    }
+    // penilaian siswa
+    public function penilaianSiswa()
+    {
+        $data['title'] = "Penilaian Siswa";
+        $data['get_all_siswa'] = $this->Guru_model->get_data_all_siswa();
+        $data['get_all_mapel'] = $this->Guru_model->get_data_all_mapel();
+        $data['get_kategori_nilai'] = $this->Guru_model->get_kategori_nilai_penilaian();
+        $data['cek_data_penilaian'] = $this->Guru_model->cekDataPenilaian();
+        $data['tampil_nilai_siswa'] = $this->Guru_model->tampilNilaiSiswa();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('partials/admin/penilaian/penilaian_siswa_admin', $data);
+        $this->load->view('templates/footer');
+    }
+
+    // public function penilaianPerSiswa($id)
+    // {
+    //     $data['title'] = "Penilaian Setiap Siswa";
+    //     $data['get_all_mapel'] = $this->Guru_model->get_data_all_mapel();
+    //     $data['get_siswaByid'] = $this->Guru_model->get_siswaByid($id);
+    //     $this->load->view('templates/header', $data);
+    //     $this->load->view('partials/admin/penilaian/penilaian_setiap_siswa_admin', $data);
+    //     $this->load->view('templates/footer');
+    // }
+    // public function nilaiSiswa($id, $id_mapel)
+    // {
+    //     $data['title'] = "Penilaian Setiap Siswa hm ";
+    //     $data['get_siswaByid'] = $this->Guru_model->get_siswaByid($id);
+    //     $data["get_kategori_nilai"] = $this->Guru_model->get_kategori_nilai_penilaian();
+    //     $this->load->view('templates/header', $data);
+    //     $this->load->view('partials/admin/penilaian/nilai_siswa', $data);
+    //     $this->load->view('templates/footer');
+    // }
+    public function func_tambah_nilai_siswa()
+    {
+        $id_siswa = $this->input->post('id_siswa');
+        $id_mapel = $this->input->post('id_mapel');
+        $nilai = $this->input->post('nilai');
+        $id_kategori_nilai = $this->input->post('id_kategori_nilai');
+        $tgl = date('Y-m-d');
+        $arrNilai = [
+            'id_siswa' => htmlspecialchars($id_siswa),
+            'id_mapel' => htmlspecialchars($id_mapel),
+            'nilai' => htmlspecialchars($nilai),
+            'id_kategori_nilai' => htmlspecialchars($id_kategori_nilai),
+            'tanggal_penilaian' => $tgl
+        ];
+        $checknilai = $this->Guru_model->checkDataNilai($id_siswa, $id_mapel);
+        if ($checknilai > 0) {
+            $this->session->set_flashdata('flashs', 'Ada');
+            redirect('Admin/penilaianSiswa');
+        } else {
+            $this->Guru_model->insertNilai($arrNilai, $id_siswa, $id_mapel);
+            $this->session->set_flashdata('flash', 'Ditambahkan');
+            redirect('Admin/penilaianSiswa');
+        }
     }
 }

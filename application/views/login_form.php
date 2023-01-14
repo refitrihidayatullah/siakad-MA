@@ -32,13 +32,13 @@
                     <img src="https://i.postimg.cc/tCwYcSrj/IMG-20230103-WA0014-removebg-preview-4.png" alt="IMG">
                 </div>
 
-                <form method="post" action="<?php echo base_url('index.php/Auth/login_aksi') ?>" class="login100-form validate-form">
+                <form method="post" action="<?= base_url('index.php/Auth/login_aksi') ?>" class="login100-form validate-form">
                     <span class="login100-form-title">
                         Login SIAKAD
                     </span>
 
                     <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="text" name="username" placeholder="Masukkan NIP/NIS">
+                        <input class="input100" type="text" name="username" value="<?= set_value('username'); ?>" placeholder="Masukkan NIP/NIS">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-user" aria-hidden="true"></i>

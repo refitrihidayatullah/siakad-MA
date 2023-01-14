@@ -222,3 +222,68 @@
     </script>
 </body>
 </ html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+date_default_timezone_set('Asia/Jakarta');
+if ($dt_jdwl_mpl['tanggal_jadwal'] == date('Y-m-d') && date('H:i:s') >= $dt_jdwl_mpl['jam_jadwal_mulai'] && date('H:i:s') <= $dt_jdwl_mpl['jam_jadwal_akhir']) { ?>
+
+
+    <div class="mb-0 mt-2 text-gray-800">
+
+        <form action="<?= base_url(); ?>Admin/func_absen_siswa" method="POST">
+            <input type="hidden" name="tanggal_absen" value="<?= $dt_jdwl_mpl['tanggal_jadwal']; ?>">
+            <input type="hidden" name="waktu_absen" value="<?= date('H:i:s'); ?>">
+            <input type="hidden" name="id_siswa" value="<?= $this->session->userdata('id_siswa'); ?>">
+            <input type="hidden" name="id_jadwal_mapel" value="<?= $dt_jdwl_mpl['id_jadwal_mapel']; ?>">
+
+            <button class="btn btn-primary btn-sm" class="text">Absen Sekarang!</button>
+        </form>
+
+    </div>
+<?php } else if ($dt_jdwl_mpl['tanggal_jadwal'] == date('Y-m-d') || $dt_jdwl_mpl['tanggal_jadwal'] < date('Y-m-d') && date('H:i:s') != $dt_jdwl_mpl['jam_jadwal_akhir']) { ?>
+
+    <div class="mt-2 text-gray-800">
+        <a href="#" class="btn btn-sm bg-gradient-light btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-info-circle"></i>
+            </span>
+            <span class="text">Absen telah berakhir!</span>
+        </a>
+    </div>
+
+
+<?php } else { ?>
+    <?php if ($cek_data_absen_siswa > 0) { ?>
+        <?php date_default_timezone_set('Asia/Jakarta');
+        if ($get_data_absen_siswa->{'status_absen'} == 1 && $get_data_absen_siswa->{'id_jadwal_mapel'} == $dt_jdwl_mpl['id_jadwal_mapel']) { ?>
+            <a href="#" class="btn btn-sm bg-gradient-light btn-icon-split">
+                <span class="icon bg-warning text-white-50">
+                    <i class="fas fa-check"></i>
+                </span>
+                <button class="btn btn-success btn-sm" class="text">Anda Sudah Absen</button>
+            </a>
+        <?php } ?>
+    <?php } else { ?>
+        <div class="mt-2 text-gray-800">
+            <a href="#" class="btn btn-sm bg-gray-100 btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-info-circle"></i>
+                </span>
+                <span class="text">Absen belum tersedia!</span>
+            </a>
+        </div>
+    <?php } ?>
+<?php } ?>

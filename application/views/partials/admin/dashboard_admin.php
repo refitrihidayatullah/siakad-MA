@@ -1,3 +1,46 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Halo, <?php
+                    $waktu = gmdate("H:i", time() + 7 * 3600);
+                    $t = explode(":", $waktu);
+                    $jam = $t[0];
+                    $menit = $t[1];
+
+                    if ($jam >= 00 and $jam < 10) {
+                        if ($menit > 00 and $menit < 60) {
+                            $ucapan = "Selamat Pagi";
+                        }
+                    } else if ($jam >= 10 and $jam < 15) {
+                        if ($menit > 00 and $menit < 60) {
+                            $ucapan = "Selamat Siang";
+                        }
+                    } else if ($jam >= 15 and $jam < 18) {
+                        if ($menit > 00 and $menit < 60) {
+                            $ucapan = "Selamat Sore";
+                        }
+                    } else if ($jam >= 18 and $jam <= 24) {
+                        if ($menit > 00 and $menit < 60) {
+                            $ucapan = "Selamat Malam";
+                        }
+                    } else {
+                        $ucapan = "Error";
+                    }
+
+                    echo $ucapan;
+
+                    ?>
+
+            <strong><?= $this->session->userdata('nama_guru'); ?></strong> .
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
 <!-- Content Row -->
 
 <!-- <div class="row"> -->
@@ -38,6 +81,8 @@
             </div>
         </div>
     </div>
+
+
 
     <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">

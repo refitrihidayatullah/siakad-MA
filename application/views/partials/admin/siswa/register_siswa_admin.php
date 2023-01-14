@@ -1,3 +1,27 @@
+<?php if ($this->session->flashdata('flash')) : ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Data <strong>Berhasil</strong> <?= $this->session->flashdata('flash'); ?>.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+<?php if ($this->session->flashdata('flashs')) : ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Data <strong>Gagal</strong> <?= $this->session->flashdata('flashs'); ?>.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
 <div class="d-sm-flex align-items-center  mb-4">
 
 
@@ -29,18 +53,18 @@
                         <?php foreach ($siswa as $sw) {
                         ?>
                             <tr>
-                                <td><?php echo ($no++) ?></td>
-                                <td><?php echo htmlspecialchars($sw->nis_siswa) ?></td>
-                                <td><?php echo htmlspecialchars($sw->nama_siswa) ?></td>
-                                <td><?php echo htmlspecialchars($sw->jenis_kelamin_siswa) ?></td>
-                                <td><?php echo htmlspecialchars($sw->id_kelas) ?></td>
-                                <td><?php echo htmlspecialchars($sw->alamat_siswa) ?></td>
+                                <td><?= $no++; ?></td>
+                                <td><?= $sw['nis_siswa']; ?></td>
+                                <td><?= $sw['nama_siswa']; ?></td>
+                                <td><?= $sw['jenis_kelamin_siswa']; ?></td>
+                                <td><?= $sw['nama_kelas']; ?></td>
+                                <td><?= $sw['alamat_siswa']; ?></td>
                                 <td>
                                     <div class=" d-flex justify-content-center">
-                                        <a href="<?php echo base_url('Admin/editSiswa/' . $sw->id_siswa) ?>" class="btn btn-warning btn-sm btn-circle mr-4">
+                                        <a href="<?= base_url(); ?>Admin/editSiswa/<?= $sw['id_siswa']; ?>" class="btn btn-warning btn-sm btn-circle mr-4">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
-                                        <a href="<?php echo base_url('Admin/hapusSiswa/') . $sw->id_siswa ?>" class="btn btn-danger btn-sm btn-circle mr-4">
+                                        <a href="<?= base_url(); ?>Admin/hapusSiswa/<?= $sw['id_siswa']; ?>" class="btn btn-danger btn-sm btn-circle mr-4">
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </div>

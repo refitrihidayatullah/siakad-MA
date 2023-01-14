@@ -119,4 +119,78 @@ class Guru_model extends CI_Model
     {
         $this->db->query("UPDATE tb_mapel SET nama_mapel='$nama' WHERE id_mapel='$id'");
     }
+
+    // master jadwal
+    public function getDataGuruJadwal()
+    {
+        return $this->db->query("SELECT id_guru, nama_guru FROM tb_guru WHERE id_guru != 1")->result_array();
+    }
+    public function getDataMapelJadwal()
+    {
+        return $this->db->query("SELECT * FROM tb_mapel")->result_array();
+    }
+    public function getDataKelasJadwal()
+    {
+        return $this->db->query("SELECT * FROM tb_kelas")->result_array();
+    }
+    public function getDataJurusanJadwal()
+    {
+        return $this->db->query("SELECT * FROM tb_jurusan")->result_array();
+    }
+    public function getDataKategoriJadwal()
+    {
+        return $this->db->query('SELECT* FROM tb_kategori_nilai')->result_array();
+    }
+    public function insertJadwalMapel($arrJadwal)
+    {
+        $this->db->insert('tb_jadwal_mapel', $arrJadwal);
+    }
+    public function getDataAllJadwal()
+    {
+        $sql = "SELECT * FROM tb_jadwal_mapel LEFT JOIN
+                        tb_guru ON tb_jadwal_mapel.id_guru = tb_guru.id_guru LEFT JOIN
+                        tb_kelas ON tb_jadwal_mapel.id_kelas = tb_kelas.id_kelas LEFT JOIN
+                        tb_jurusan ON tb_jadwal_mapel.id_jurusan = tb_jurusan.id_jurusan LEFT JOIN
+                        tb_mapel ON tb_jadwal_mapel.id_mapel = tb_mapel.id_mapel LEFT JOIN
+                        tb_kategori_nilai ON tb_jadwal_mapel.id_kategori_nilai = tb_kategori_nilai.id_kategori_nilai ";
+        return $this->db->query($sql)->result_array();
+    }
+    public function updateDataJadwalMapel($arrJadwal, $id_jadwal_mapel)
+    {
+        $sql = "UPDATE tb_jadwal_mapel SET id_guru=?,id_kelas=?,id_jurusan=?,id_mapel=?,id_kategori_nilai=?,tanggal_jadwal=?,jam_jadwal_mulai=?,jam_jadwal_akhir=? WHERE id_jadwal_mapel=$id_jadwal_mapel";
+        $this->db->query($sql, $arrJadwal);
+    }
+    public function get_data_all_siswa()
+    {
+        return $this->db->query("SELECT * FROM tb_siswa")->result_array();
+    }
+    public function get_data_all_mapel()
+    {
+        return $this->db->query("SELECT * FROM tb_mapel")->result_array();
+    }
+
+    public function get_kategori_nilai_penilaian()
+    {
+        return $this->db->query("SELECT * FROM tb_kategori_nilai")->result_array();
+    }
+    // input nilai
+    public function insertNilai($arrNilai)
+    {
+        $this->db->insert('tb_penilaian_siswa', $arrNilai);
+    }
+    public function checkDataNilai($id_siswa, $id_mapel)
+    {
+        return $this->db->query("SELECT * FROM tb_penilaian_siswa WHERE id_siswa = $id_siswa AND id_mapel = $id_mapel")->num_rows();
+    }
+    public function cekDataPenilaian()
+    {
+        return $this->db->query("SELECT * FROM tb_penilaian_siswa")->num_rows();
+    }
+    public function tampilNilaiSiswa()
+    {
+        return $this->db->query("SELECT * FROM tb_penilaian_siswa LEFT JOIN
+                                               tb_siswa ON tb_penilaian_siswa.id_siswa = tb_siswa.id_siswa LEFT JOIN
+                                               tb_mapel ON tb_penilaian_siswa.id_mapel = tb_mapel.id_mapel LEFT JOIN
+                                               tb_kategori_nilai ON tb_penilaian_siswa.id_kategori_nilai = tb_kategori_nilai.id_kategori_nilai")->result_array();
+    }
 }
