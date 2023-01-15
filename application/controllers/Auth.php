@@ -25,9 +25,9 @@ class Auth extends CI_Controller
         $username = htmlspecialchars($this->input->post('username'));
         $password = md5($this->input->post('password'));
 
-        $cek_nis_siswa = $this->db->query("SELECT * FROM tb_siswa WHERE nis_siswa=$username AND password_siswa='$password';")->num_rows();
+        $cek_nis_siswa = $this->db->query("SELECT * FROM tb_siswa WHERE nis_siswa=$username AND password_siswa='$password'")->num_rows();
 
-        $cek_nip_guru  = $this->db->query("SELECT * FROM tb_guru WHERE nip_guru = $username AND password_guru = $password")->num_rows();
+        $cek_nip_guru  = $this->db->query("SELECT * FROM tb_guru WHERE nip_guru = $username AND password_guru = '$password'")->num_rows();
 
         // ambil data
         $get_data_siswa = $this->db->query("SELECT * FROM tb_siswa WHERE nis_siswa = $username")->row();
