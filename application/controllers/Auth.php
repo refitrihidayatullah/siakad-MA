@@ -15,7 +15,7 @@ class Auth extends CI_Controller
 
     public function index()
     {
-
+        is_login('Admin');
         $this->load->view('login_form');
         // echo "test auth controller";
     }
@@ -39,7 +39,8 @@ class Auth extends CI_Controller
                 $data_session_guru = [
                     'id_guru' => $get_data_guru->{'id_guru'},
                     'nama_guru' => $get_data_guru->{'nama_guru'},
-                    'id_hak_akses' => $get_data_guru->{'id_hak_akses'}
+                    'id_hak_akses' => $get_data_guru->{'id_hak_akses'},
+                    'status' => 'telah_login',
                 ];
                 $this->session->set_userdata($data_session_guru);
                 redirect('Admin');
@@ -51,7 +52,8 @@ class Auth extends CI_Controller
                     'nama_siswa' => $get_data_siswa->{'nama_siswa'},
                     'id_kelas' => $get_data_siswa->{'id_kelas'},
                     'id_jurusan' => $get_data_siswa->{'id_jurusan'},
-                    'id_hak_akses' => $get_data_siswa->{'id_hak_akses'}
+                    'id_hak_akses' => $get_data_siswa->{'id_hak_akses'},
+                    'status' => 'telah_login',
                 ];
                 $this->session->set_userdata($data_session_siswa);
                 // var_dump($this->session->userdata());
