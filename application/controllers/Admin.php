@@ -6,6 +6,7 @@ class Admin extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        if (!is_login()) redirect('auth?alert=belum_login');
         // $this->load->model('Siswa_model');
         $this->load->model('Guru_model');
         $this->load->model('Siswa_model');
