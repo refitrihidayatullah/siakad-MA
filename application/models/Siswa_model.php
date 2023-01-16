@@ -99,6 +99,25 @@ class Siswa_model extends CI_Model
         $id_siswa = $this->session->userdata('id_siswa');
         return $this->db->query("SELECT * FROM  tb_absen WHERE id_siswa = $id_siswa AND status_absen = 1 ")->num_rows();
     }
+
+    // rekap nilai siswa
+    function lihat_rekap_nilai_byId($id)
+    {
+        $sql = "SELECT * FROM tb_penilaian_siswa LEFT JOIN 
+                             tb_siswa ON tb_penilaian_siswa.id_siswa = tb_siswa.id_siswa LEFT JOIN
+                             tb_mapel ON tb_penilaian_siswa.id_mapel = tb_mapel.id_mapel LEFT JOIN
+                             tb_kategori_nilai ON tb_penilaian_siswa.id_kategori_nilai = tb_kategori_nilai.id_kategori_nilai
+                             WHERE tb_penilaian_siswa.id_siswa = $id";
+        return $this->db->query($sql)->result_array();
+    }
+    public function get_rekap_nilai_siswa_ById($id)
+    {
+        $sql = "SELECT * FROM tb_siswa LEFT JOIN
+                             tb_kelas ON tb_siswa.id_kelas = tb_kelas.id_kelas LEFT JOIN
+                             tb_jurusan ON tb_siswa.id_jurusan = tb_jurusan.id_jurusan
+                             WHERE tb_siswa.id_siswa = $id";
+        return $this->db->query($sql)->result_array();
+    }
     // dashboard siswa end
 
 

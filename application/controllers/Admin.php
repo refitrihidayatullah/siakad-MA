@@ -709,4 +709,55 @@ class Admin extends CI_Controller
             redirect('Admin/penilaianSiswa');
         }
     }
+    public function rekapNilaiSiswa()
+    {
+        $data['title'] = "Data Rekap Nilai Siswa";
+        $data['siswa'] = $this->Siswa_model->get_data_all();
+        $this->load->view('templates/header', $data);
+        $this->load->view('rekap_penilaian/rekap', $data);
+        $this->load->view('templates/footer');
+    }
+    public function lihatRekapNilai($id)
+    {
+        $data['title'] = "Lihat Rekap Nilai Siswa";
+        $data['rekap_nilai'] = $this->Siswa_model->lihat_rekap_nilai_byId($id);
+        $data['data_siswa'] = $this->Siswa_model->get_rekap_nilai_siswa_ById($id);
+
+        // var_dump($data['data_siswa']);
+        // var_dump($data['rekap_nilai']);
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('rekap_penilaian/rekap_persiswa', $data);
+        $this->load->view('templates/footer');
+    }
+    public function eksporRekapNilai($id)
+    {
+        $this->data['rekap_nilai'] = $this->Siswa_model->lihat_rekap_nilai_byId($id);
+        $this->data['data_siswa'] = $this->Siswa_model->get_rekap_nilai_siswa_ById($id);
+
+
+        // $this->load->view('rekap_penilaian/ekspor_pdf');
+
+        // load dompdf
+
+        // panggil library yang kita buat sebelumnya yang bernama pdfgenerator
+        $this->load->library('pdfgenerator');
+
+        // title dari pdf
+        // $this->data['title_pdf'] = 'Laporan Penjualan Toko Kita';
+
+        // filename dari pdf ketika didownload
+        $file_pdf = 'laporan_penjualan_toko_kita';
+        // setting paper
+        $paper = 'A4';
+        //orientasi paper potrait / landscape
+        $orientation = "portrait";
+
+        $html = $this->load->view('cetak_nilai',  $this->data, true);
+
+        // run dompdf
+        $this->pdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+    }
 }
+    // $c = $this->Siswa_model->lihat_rekap_nilai_byId($id);
+    // var_dump($cek);
