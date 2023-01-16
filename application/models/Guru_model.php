@@ -213,4 +213,24 @@ class Guru_model extends CI_Model
     {
         return $this->db->query("SELECT * FROM tb_penilaian_siswa WHERE id_siswa = $id_siswa AND id_mapel = $id_mapel")->num_rows();
     }
+    public function data_absen_all_siswa()
+    {
+        $sql = "SELECT * FROM tb_absen LEFT JOIN 
+                             tb_siswa ON tb_absen.id_siswa = tb_siswa.id_siswa LEFT JOIN
+                             tb_jadwal_mapel ON tb_absen.id_jadwal_mapel = tb_jadwal_mapel.id_jadwal_mapel LEFT JOIN
+                             tb_kelas ON tb_jadwal_mapel.id_kelas = tb_kelas.id_kelas LEFT JOIN
+                             tb_jurusan ON tb_jadwal_mapel.id_jurusan = tb_jurusan.id_jurusan LEFT JOIN
+                             tb_mapel ON tb_jadwal_mapel.id_mapel = tb_mapel.id_mapel";
+        return $this->db->query($sql)->result_array();
+    }
+    public function filter_data_absen()
+    {
+        $sql = "SELECT * FROM tb_absen LEFT JOIN tb_siswa ON tb_absen.id_siswa = tb_siswa.id_siswa LEFT JOIN tb_jadwal_mapel ON tb_absen.id_jadwal_mapel = tb_jadwal_mapel.id_jadwal_mapel LEFT JOIN tb_kelas ON tb_jadwal_mapel.id_kelas = tb_kelas.id_kelas LEFT JOIN tb_jurusan ON tb_jadwal_mapel.id_jurusan = tb_jurusan.id_jurusan GROUP BY tb_absen.id_siswa;";
+        return $this->db->query($sql)->result_array();
+    }
+    public function lihat_absen_siswa_byId($id)
+    {
+        $sql = "SELECT COUNT(id_siswa) AS total FROM tb_absen WHERE id_siswa = $id";
+        return $this->db->query($sql)->row();
+    }
 }

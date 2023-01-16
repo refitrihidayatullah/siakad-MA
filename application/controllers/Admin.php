@@ -34,6 +34,7 @@ class Admin extends CI_Controller
             $data['get_data_jadwal_mapel'] = $this->Siswa_model->get_data_all_jadwal_mapel($dt_sess_id_siswa, $dt_sess_id_kelas, $dt_sess_id_jurusan);
             $data['get_data_absen_siswa'] = $this->Siswa_model->getDataAbsenSiswa();
             $data['cek_data_absen_siswa'] = $this->Siswa_model->cekDataAbsenSiswa();
+            $data['data_absen_siswa_ById'] = $this->Siswa_model->dataAbsenSiswaById($dt_sess_id_siswa);
 
 
 
@@ -708,5 +709,18 @@ class Admin extends CI_Controller
             $this->session->set_flashdata('update', 'Diubah');
             redirect('Admin/penilaianSiswa');
         }
+    }
+    // data absen siswa
+    public function absenSiswa()
+    {
+        $data['title'] = "Absen Siswa";
+        $data['data_absen_all_siswa'] = $this->Guru_model->data_absen_all_siswa();
+        $data['filter_data_absen'] = $this->Guru_model->filter_data_absen();
+
+
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('partials/admin/absen/absen_all_siswa', $data);
+        $this->load->view('templates/footer');
     }
 }

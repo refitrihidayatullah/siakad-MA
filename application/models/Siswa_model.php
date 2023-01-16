@@ -100,8 +100,16 @@ class Siswa_model extends CI_Model
         return $this->db->query("SELECT * FROM  tb_absen WHERE id_siswa = $id_siswa AND status_absen = 1 ")->num_rows();
     }
     // dashboard siswa end
-
-
+    public function dataAbsenSiswaById($dt_sess_id_siswa)
+    {
+        $sql = "SELECT * FROM tb_absen LEFT JOIN 
+        tb_siswa ON tb_absen.id_siswa = tb_siswa.id_siswa LEFT JOIN
+        tb_jadwal_mapel ON tb_absen.id_jadwal_mapel = tb_jadwal_mapel.id_jadwal_mapel LEFT JOIN
+        tb_kelas ON tb_jadwal_mapel.id_kelas = tb_kelas.id_kelas LEFT JOIN
+        tb_jurusan ON tb_jadwal_mapel.id_jurusan = tb_jurusan.id_jurusan LEFT JOIN
+        tb_mapel ON tb_jadwal_mapel.id_mapel = tb_mapel.id_mapel WHERE tb_absen.id_siswa = $dt_sess_id_siswa";
+        return $this->db->query($sql)->result_array();
+    }
 }
                 
                         

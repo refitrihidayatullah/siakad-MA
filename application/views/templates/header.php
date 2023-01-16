@@ -129,11 +129,55 @@
             <?php if ($dt_sess == 2 || $dt_sess == 1) { ?>
                 <!-- Divider -->
                 <hr class="sidebar-divider">
-                <!-- Nav Item - Utilities Collapse Menu -->
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Penilaian
+                </div>
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="<?= base_url(); ?>Admin/penilaianSiswa">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#penilaianSiswa" aria-expanded="true" aria-controls="collapseUtilities">
                         <i class="fas fa-fw fa-wrench"></i>
                         <span>Penilaian Siswa</span>
+                    </a>
+                    <div id="penilaianSiswa" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Penilaian Siswa</h6>
+                            <a class="collapse-item" href="<?= base_url(); ?>Admin/penilaianSiswa">Penilaian Siswa</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Penilaian
+                </div>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#penilaianSiswa" aria-expanded="true" aria-controls="collapseUtilities">
+                        <i class="fas fa-fw fa-wrench"></i>
+                        <span>Penilaian Siswa</span>
+                    </a>
+                    <div id="penilaianSiswa" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Penilaian Siswa</h6>
+                            <a class="collapse-item" href="<?= base_url(); ?>Admin/penilaianSiswa">Penilaian Siswa</a>
+                        </div>
+                    </div>
+                </li>
+
+
+
+
+
+
+
+
+
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="<?= base_url(); ?>Admin/absenSiswa">
+                        <i class="fas fa-fw fa-wrench"></i>
+                        <span>Absen Siswa</span>
                     </a>
                 </li>
 

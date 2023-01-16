@@ -66,7 +66,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for="nilai">Nilai</label>
-                    <input type="number" class="form-control" id="nilai" name="nilai" required>
+                    <input type="number" class="form-control" id="nilai" name="nilai" placeholder="masukkan nilai siswa.." required>
                 </div>
             </div>
             <hr>
@@ -205,7 +205,7 @@ foreach ($tampil_nilai_siswa as $tmpl_nilai) : $no++;  ?>
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="nilai">Nilai</label>
-                                <input type="number" class="form-control" id="nilai" value="<?= $tmpl_nilai['nilai']; ?>" name="nilai" required>
+                                <input type="number" class="form-control" id="nilai" value="<?= $tmpl_nilai['nilai']; ?>" name="nilai" placeholder="masukkan nilai siswa" required>
                             </div>
 
                         </div>

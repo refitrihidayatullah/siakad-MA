@@ -142,3 +142,49 @@
         </div>
     <?php endforeach; ?>
 </div>
+
+<div class="d-sm-flex align-items-center  mb-4">
+    <div class="card shadow mb-4 w-100">
+        <div class="card-header py-3 d-sm-flex justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Riwayat Absen <?= $this->session->userdata('nama_siswa'); ?></h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Nama</th>
+                            <th>Kelas</th>
+                            <th>Jurusan</th>
+                            <th>Mata Pelajaran</th>
+                            <th>Jam</th>
+                            <th>Waktu Absen</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($data_absen_siswa_ById as $dt_absn_siswaById) { ?>
+                            <tr>
+                                <td><?= $dt_absn_siswaById['tanggal_absen']; ?></td>
+                                <td><?= $dt_absn_siswaById['nama_siswa']; ?></td>
+                                <td><?= $dt_absn_siswaById['nama_kelas']; ?></td>
+                                <td><?= $dt_absn_siswaById['nama_jurusan']; ?></td>
+                                <td><?= $dt_absn_siswaById['nama_mapel']; ?></td>
+                                <td><?= $dt_absn_siswaById['jam_jadwal_mulai']; ?>-<?= $dt_absn_siswaById['jam_jadwal_akhir']; ?></td>
+                                <td><?= $dt_absn_siswaById['waktu_absen']; ?></td>
+                                <td>
+                                    <?php if ($dt_absn_siswaById['status_absen'] = 1) { ?>
+                                        <span class="badge badge-success ml-4">Hadir</span>
+                                    <?php } else { ?>
+                                        <span class="badge badge-danger ml-4">Tidak Hadir</span>
+                                    <?php } ?>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
