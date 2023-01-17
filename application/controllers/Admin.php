@@ -736,8 +736,8 @@ class Admin extends CI_Controller
     {
         $this->data['rekap_nilai'] = $this->Siswa_model->lihat_rekap_nilai_byId($id);
         $this->data['data_siswa'] = $this->Siswa_model->get_rekap_nilai_siswa_ById($id);
-        $this->data['totalNilai'] - $this->Siswa_model->get_total_nilai_siswa_ById($id);
-        $this->data['ratarataNilai'] - $this->Siswa_model->get_avg_nilai_siswa_ById($id);
+        $this->data['totalNilai'] = $this->Siswa_model->get_total_nilai_siswa_ById($id);
+        $this->data['ratarataNilai'] = $this->Siswa_model->get_avg_nilai_siswa_ById($id);
 
 
         // $this->load->view('rekap_penilaian/ekspor_pdf');
@@ -758,9 +758,28 @@ class Admin extends CI_Controller
         $orientation = "portrait";
 
         $html = $this->load->view('cetak_nilai',  $this->data, true);
+        // return $this->load->view('cetak_nilai',  $this->data, true);
 
         // run dompdf
         $this->pdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+    }
+
+    public function test_cetak($id)
+    {
+        $data['rekap_nilai'] = $this->Siswa_model->lihat_rekap_nilai_byId($id);
+        $data['data_siswa'] = $this->Siswa_model->get_rekap_nilai_siswa_ById($id);
+        $data['totalNilai'] = $this->Siswa_model->get_total_nilai_siswa_ById($id);
+        $data['ratarataNilai'] = $this->Siswa_model->get_avg_nilai_siswa_ById($id);
+
+        // var_dump($data);
+        var_dump($data['rekap_nilai']);
+        var_dump($data['data_siswa']);
+
+        // foreach ($ as $key => $value) {
+        //     # code...
+        // }
+        var_dump($data['totalNilai']);
+        var_dump($data['ratarataNilai']);
     }
     // data absen siswa
     public function absenSiswa()

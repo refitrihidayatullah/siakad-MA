@@ -49,15 +49,17 @@
 
         <div class="tnr container mt-4 mb-4 ml-6 mr-6">
 
-            <table id="siswa">
+            <!-- <table id="siswa">
                 <tr>
                     <th>No</th>
                     <th>Nama Mata Pelajaran</th>
                     <th>Kategori</th>
                     <th>Nilai</th>
-                </tr>
-                <?php $no = 1;
-                foreach ($rekap_nilai as $rn) { ?>
+                </tr> -->
+            <?php
+            // $no = 1;
+            // foreach ($rekap_nilai as $rn) { 
+            ?>
             <table id="siswa">
                 <tr>
                     <th>No</th>
