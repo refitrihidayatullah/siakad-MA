@@ -58,6 +58,15 @@
                 </tr>
                 <?php $no = 1;
                 foreach ($rekap_nilai as $rn) { ?>
+            <table id="siswa">
+                <tr>
+                    <th>No</th>
+                    <th>Nama Mata Pelajaran</th>
+                    <th>Kategori</th>
+                    <th>Nilai</th>
+                </tr>
+                <?php $no = 1;
+                foreach ($rekap_nilai as $rn) { ?>
                     <tr>
                         <td><?= $no++; ?></td>
                         <td><?= $rn['nama_mapel']; ?></td>
