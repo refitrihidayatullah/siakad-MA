@@ -49,31 +49,55 @@
 
         <div class="tnr container mt-4 mb-4 ml-6 mr-6">
 
-            <table class="table">
-                <thead>
+            <table id="siswa">
+                <tr>
+                    <th>No</th>
+                    <th>Nama Mata Pelajaran</th>
+                    <th>Kategori</th>
+                    <th>Nilai</th>
+                </tr>
+                <?php $no = 1;
+                foreach ($rekap_nilai as $rn) { ?>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nama Mata Pelajaran</th>
-                        <th scope="col">Nilai</th>
-                        <th scope="col">Kategori</th>
+                        <td><?= $no++; ?></td>
+                        <td><?= $rn['nama_mapel']; ?></td>
+                        <td><?= $rn['nilai']; ?></td>
+                        <td><?= $rn['nama_kategori_nilai']; ?></td>
                     </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $no = 1;
-                    foreach ($rekap_nilai as $rn) {
-
-                    ?>
-                        <tr>
-                            <th scope="row"><?php echo $no++ ?></th>
-                            <td><?php echo $rn['nama_mapel']; ?></td>
-                            <td><?php echo $rn['nilai']; ?></td>
-                            <td><?php echo $rn['nama_kategori_nilai']; ?></td>
-
-                        </tr>
-                    <?php } ?>
-                </tbody>
+                <?php } ?>
+                <tr>
+                    <td id="tt_nilai" colspan="3">Total</td>
+                    <td>100</td>
+                </tr>
+                <tr>
+                    <td id="tt_nilai" colspan="3">Nilai Rata Rata</td>
+                    <td>100</td>
+                </tr>
             </table>
+
+            <div id="pembungkus">
+                <div id="pembungkus_ttd">
+                    <div class="text-center">
+                        Mengetahui
+                    </div>
+
+
+                    <div style="margin-top:45px;">
+                        (__________________)
+                    </div>
+                </div>
+                <div id="pembungkus_ttd">
+                    <div class="text-center">
+                        Mengetahui
+                    </div>
+
+
+                    <div class="m45">
+                        (__________________)
+                    </div>
+                </div>
+                          
+            </div>
         </div>
 
         <!-- </div> -->
