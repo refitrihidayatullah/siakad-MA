@@ -22,7 +22,7 @@
         </div>
         <div class="card-header py-3 d-sm-flex justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">Rekap Penilaian</h6>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <a href="<?= base_url(); ?>Admin/eksporRekapNilai/<?= $ds['id_siswa']; ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                 <i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
         </div>
 

@@ -150,39 +150,44 @@
                 <hr class="sidebar-divider">
                 <!-- Heading -->
                 <div class="sidebar-heading">
-                    Penilaian
+                    Absen
                 </div>
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#penilaianSiswa" aria-expanded="true" aria-controls="collapseUtilities">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#absenSiswa" aria-expanded="true" aria-controls="collapseUtilities">
                         <i class="fas fa-fw fa-wrench"></i>
-                        <span>Penilaian Siswa</span>
+                        <span>Absen Siswa</span>
                     </a>
-                    <div id="penilaianSiswa" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div id="absenSiswa" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Penilaian Siswa</h6>
-                            <a class="collapse-item" href="<?= base_url(); ?>Admin/penilaianSiswa">Penilaian Siswa</a>
+                            <h6 class="collapse-header">Absen Siswa</h6>
+                            <a class="collapse-item" href="<?= base_url(); ?>Admin/absenSiswa">Absen Siswa</a>
                         </div>
                     </div>
                 </li>
 
-
-
-
-
-
-
-
-
-
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="<?= base_url(); ?>Admin/absenSiswa">
-                        <i class="fas fa-fw fa-wrench"></i>
-                        <span>Absen Siswa</span>
-                    </a>
-                </li>
+                <!-- Divider -->
 
                 <!-- Divider -->
                 <hr class="sidebar-divider">
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Report
+                </div>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#reportSiswa" aria-expanded="true" aria-controls="collapseUtilities">
+                        <i class="fas fa-fw fa-wrench"></i>
+                        <span>Report</span>
+                    </a>
+                    <div id="reportSiswa" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Report Penilaian Siswa</h6>
+                            <a class="collapse-item" href="<?= base_url(); ?>Admin/rekapNilaiSiswa">Report Penilaian Siswa</a>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Divider -->
+
             <?php } ?>
 
             <!-- Divider -->
@@ -286,5 +291,5 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800"><?= $title; ?></h1>
 
-
+                        <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
                     </div>

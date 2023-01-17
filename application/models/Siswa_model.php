@@ -129,6 +129,16 @@ class Siswa_model extends CI_Model
         tb_mapel ON tb_jadwal_mapel.id_mapel = tb_mapel.id_mapel WHERE tb_absen.id_siswa = $dt_sess_id_siswa";
         return $this->db->query($sql)->result_array();
     }
+    public function get_total_nilai_siswa_ById($id)
+    {
+        $sql = "SELECT SUM(nilai) AS tot FROM tb_penilaian_siswa WHERE id_siswa=$id";
+        return $this->db->query($sql)->row();
+    }
+    public function get_avg_nilai_siswa_ById($id)
+    {
+        $sql = "SELECT AVG(nilai) AS avg FROM tb_penilaian_siswa WHERE id_siswa = $id";
+        return $this->db->query($sql)->row();
+    }
 }
                 
                         

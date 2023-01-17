@@ -49,31 +49,54 @@
 
         <div class="tnr container mt-4 mb-4 ml-6 mr-6">
 
-            <table class="table">
-                <thead>
+            <table id="siswa">
+                <tr>
+                    <th>No</th>
+                    <th>Nama Mata Pelajaran</th>
+                    <th>Kategori</th>
+                    <th>Nilai</th>
+                </tr>
+                <?php $no = 1;
+                foreach ($rekap_nilai as $rn) { ?>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nama Mata Pelajaran</th>
-                        <th scope="col">Nilai</th>
-                        <th scope="col">Kategori</th>
+                        <td><?= $no++; ?></td>
+                        <td><?= $rn['nama_mapel']; ?></td>
+                        <td><?= $rn['nama_kategori_nilai']; ?></td>
+                        <td><?= $rn['nilai']; ?></td>
                     </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $no = 1;
-                    foreach ($rekap_nilai as $rn) {
-
-                    ?>
-                        <tr>
-                            <th scope="row"><?php echo $no++ ?></th>
-                            <td><?php echo $rn['nama_mapel']; ?></td>
-                            <td><?php echo $rn['nilai']; ?></td>
-                            <td><?php echo $rn['nama_kategori_nilai']; ?></td>
-
-                        </tr>
-                    <?php } ?>
-                </tbody>
+                <?php } ?>
+                <tr>
+                    <td id="tt_nilai" colspan="3">Total</td>
+                    <td><?= $totalNilai->{'tot'}; ?></td>
+                </tr>
+                <tr>
+                    <td id="tt_nilai" colspan="3">Nilai Rata Rata</td>
+                    <td><?= $ratarataNilai->{'avg'}; ?></td>
+                </tr>
             </table>
+
+            <div id="pembungkus">
+                <!-- <div id="pembungkus_ttd" class="mt200">
+                    <div>
+                        Mengetahui
+                    </div>
+
+
+                    <div class="m45">
+                        (__________________)
+                    </div>
+                </div> -->
+                <div id="pembungkus_ttd">
+                    <div class="ml-580 mt200">
+                        Mengetahui
+                    </div>
+
+
+                    <div class="m45 ml-500">
+                        (__________________)
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- </div> -->
