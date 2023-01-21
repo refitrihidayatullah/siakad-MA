@@ -59,7 +59,7 @@ class Auth extends CI_Controller
                 // var_dump($this->session->userdata());
                 redirect('Admin');
             } else {
-                echo "hem";
+                redirect('Auth');
             }
         } else {
             redirect('Auth/index');

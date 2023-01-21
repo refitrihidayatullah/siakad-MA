@@ -68,7 +68,7 @@
                 <!-- Nav Item - Utilities Collapse Menu -->
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                        <i class="fas fa-fw fa-wrench"></i>
+                        <i class="fas fa-scroll"></i>
                         <span>Registrasi</span>
                     </a>
                     <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -91,7 +91,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#masterMapel" aria-expanded="true" aria-controls="collapseUtilities">
-                        <i class="fas fa-fw fa-wrench"></i>
+                        <i class="fas fa-database"></i>
                         <span>Master</span>
                     </a>
                     <div id="masterMapel" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -112,7 +112,7 @@
                 <!-- Nav Item - Utilities Collapse Menu -->
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#masterJadwalMapel" aria-expanded="true" aria-controls="collapseUtilities">
-                        <i class="fas fa-fw fa-wrench"></i>
+                        <i class="fas fa-calendar-week"></i>
                         <span>Jadwal Mata Pelajaran</span>
                     </a>
                     <div id="masterJadwalMapel" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -135,7 +135,7 @@
                 </div>
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#penilaianSiswa" aria-expanded="true" aria-controls="collapseUtilities">
-                        <i class="fas fa-fw fa-wrench"></i>
+                        <i class="fas fa-list"></i>
                         <span>Penilaian Siswa</span>
                     </a>
                     <div id="penilaianSiswa" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -154,7 +154,7 @@
                 </div>
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#absenSiswa" aria-expanded="true" aria-controls="collapseUtilities">
-                        <i class="fas fa-fw fa-wrench"></i>
+                        <i class="fas fa-tasks"></i>
                         <span>Absen Siswa</span>
                     </a>
                     <div id="absenSiswa" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -175,7 +175,7 @@
                 </div>
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#reportSiswa" aria-expanded="true" aria-controls="collapseUtilities">
-                        <i class="fas fa-fw fa-wrench"></i>
+                        <i class="fas fa-book"></i>
                         <span>Report</span>
                     </a>
                     <div id="reportSiswa" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -189,6 +189,7 @@
                 <!-- Divider -->
 
             <?php } ?>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

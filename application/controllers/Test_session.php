@@ -1,7 +1,8 @@
-<?php 
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Test_session extends CI_Controller {
+class Test_session extends CI_Controller
+{
 
     public function __construct()
     {
@@ -10,7 +11,8 @@ class Test_session extends CI_Controller {
 
     public function index()
     {
-
+        var_dump($this->session->userdata());
+        die;
     }
 }
 

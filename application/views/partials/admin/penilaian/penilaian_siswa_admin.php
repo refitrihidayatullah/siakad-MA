@@ -133,10 +133,13 @@
                                     <td><?= $tmpl_nilai['tanggal_penilaian']; ?></td>
                                     <td>
                                         <div class=" d-flex justify-content-center">
-                                            <a href="#" data-toggle="modal" data-target="#editPenilaianSiswa<?= $tmpl_nilai['id_penilaian_siswa']; ?>" class=" btn btn-warning btn-sm btn-circle mr-4">
+                                            <!-- <a href="#" data-toggle="modal" data-target="#editPenilaianSiswa<?= $tmpl_nilai['id_penilaian_siswa']; ?>" class=" btn btn-warning btn-sm btn-circle mr-4">
                                                 <i class="fas fa-pencil-alt"></i>
-                                            </a>
+                                            </a> -->
 
+                                            <a href="<?= base_url(); ?>Admin/deletePenilaianSiswa/<?= $tmpl_nilai['id_penilaian_siswa']; ?>" class="btn btn-danger btn-sm btn-circle mr-4" onclick="return confirm('Apakah Anda Yakin Akan Menghapus?');">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
