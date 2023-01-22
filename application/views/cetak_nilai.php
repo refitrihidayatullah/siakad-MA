@@ -82,7 +82,7 @@
                 </tr>
                 <tr>
                     <td id="tt_nilai" colspan="3">Nilai Rata Rata</td>
-                    <td><?= $ratarataNilai->{'avg'}; ?></td>
+                    <td><?= number_format($ratarataNilai->{'avg'}, 2, '.', '') ?></td>
                 </tr>
             </table>
 

@@ -261,7 +261,7 @@ foreach ($get_data_all_jadwal as $dt_all_jadwal) : $no++; ?>
                             <div class="form-group col-md-12">
                                 <label for="id_kategori_nilai">Jadwal Kategori</label>
                                 <select id="id_kategori_nilai" name="id_kategori_nilai" class="form-control">
-                                    <option <?= $dt_all_jadwal['id_kategori_nilai']; ?> selected><?= $dt_all_jadwal['nama_kategori_nilai']; ?></option>
+                                    <option value="<?= $dt_all_jadwal['id_kategori_nilai']; ?>" selected><?= $dt_all_jadwal['nama_kategori_nilai']; ?></option>
                                     <?php foreach ($get_data_kategori as $dt_ktgr) { ?>
                                         <option value="<?= $dt_ktgr['id_kategori_nilai']; ?>"><?= $dt_ktgr['nama_kategori_nilai']; ?></option>
                                     <?php } ?>

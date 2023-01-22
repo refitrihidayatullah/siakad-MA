@@ -14,6 +14,7 @@ class Admin extends CI_Controller
     public function index()
     {
         $dt_sess = $this->session->userdata('id_hak_akses');
+
         if ($dt_sess == 1 || $dt_sess == 2) {
 
             // }
@@ -27,6 +28,7 @@ class Admin extends CI_Controller
             $this->load->view('partials/admin/dashboard_admin', $data);
             $this->load->view('templates/footer');
         } else {
+
             $dt_sess_id_siswa = $this->session->userdata('id_siswa');
             $dt_sess_id_kelas = $this->session->userdata('id_kelas');
             $dt_sess_id_jurusan = $this->session->userdata('id_jurusan');
@@ -48,6 +50,8 @@ class Admin extends CI_Controller
     // function siswa start
     public function registerSiswa()
     {
+
+
         $data['title'] = "Registrasi Siswa";
         $data['siswa'] = $this->Siswa_model->get_data_all();
         $this->load->view('templates/header', $data);
@@ -57,6 +61,8 @@ class Admin extends CI_Controller
 
     public function tambahSiswa()
     {
+
+
         $data['title'] = "Tambah Siswa";
         $data['get_kelas'] = $this->Siswa_model->get_kelas_siswa();
         $data['get_jurusan'] = $this->Siswa_model->get_jurusan_siswa();
@@ -121,6 +127,8 @@ class Admin extends CI_Controller
     }
     public function hapusSiswa($id)
     {
+
+
         $where = array(
             'id_siswa' => $id
         );
@@ -133,6 +141,8 @@ class Admin extends CI_Controller
 
     public function editSiswa($id)
     {
+
+
         // $where = array('id_siswa' => $id);
         // $data['siswa'] =  $this->Siswa_model->edit_data($where, 'tb_siswa')->result();
         $data['siswa_ById'] = $this->Siswa_model->get_siswa_ById($id);
@@ -148,6 +158,8 @@ class Admin extends CI_Controller
     }
     public function updateSiswa()
     {
+
+
         $this->form_validation->set_rules('nis_siswa', 'NIS', 'required');
         // $this->form_validation->set_rules('password_siswa', 'Password', 'required');
         $this->form_validation->set_rules('nama_siswa', 'Nama Siswa', 'required');
@@ -204,6 +216,8 @@ class Admin extends CI_Controller
     // function guru start
     public function registerGuru()
     {
+
+
         $data['title'] = "Registrasi Guru";
         $data['tampil_data_guru'] = $this->Guru_model->getDataGuru();
         $this->load->view('templates/header', $data);
@@ -212,6 +226,8 @@ class Admin extends CI_Controller
     }
     public function tambahGuru()
     {
+
+
         $data['get_role'] = $this->Guru_model->get_role();
         $data['title'] = "Tambah Guru";
         $this->load->view('templates/header', $data);
@@ -269,6 +285,8 @@ class Admin extends CI_Controller
 
     public function editGuru($id)
     {
+
+
         $data['title'] = "Edit Guru";
         $data['getDataGuruById'] = $this->Guru_model->getDataGuruById($id);
         // var_dump($data['getDataGuruById']);
@@ -330,6 +348,8 @@ class Admin extends CI_Controller
 
     public function deleteGuru($id_guru)
     {
+
+
         $this->Guru_model->deleteDataGuru($id_guru);
         $this->session->set_flashdata('flash', 'Didelete');
         redirect('Admin/registerGuru');
@@ -339,6 +359,8 @@ class Admin extends CI_Controller
     // master kelas
     public function tambahKelas()
     {
+
+
         $this->form_validation->set_rules('nama_kelas', 'nama', 'required');
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('flashs', 'Ditambahkan');
@@ -357,6 +379,8 @@ class Admin extends CI_Controller
     // master mapel
     public function masterMapel()
     {
+
+
         $data['title'] = "Master Mapel";
         $data['getDataKelas'] = $this->Guru_model->getDataKelas();
         $data['getDataJurusan'] = $this->Guru_model->getDataJurusan();
@@ -368,6 +392,8 @@ class Admin extends CI_Controller
     }
     public function updateKelas()
     {
+
+
         $this->form_validation->set_rules('nama_kelas', 'nama', 'required');
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('flashs', 'Diupdate');
@@ -383,6 +409,8 @@ class Admin extends CI_Controller
     }
     public function deleteMasterKelas($id)
     {
+
+
         $this->Guru_model->deleteDataKelas($id);
         $this->session->set_flashdata('flash', 'Didelete');
         redirect('Admin/masterMapel');
@@ -390,6 +418,8 @@ class Admin extends CI_Controller
 
     public function tambahJurusan()
     {
+
+
         $this->form_validation->set_rules('nama_jurusan', 'nama', 'required');
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('flashs', 'Ditambahkan');
@@ -406,6 +436,8 @@ class Admin extends CI_Controller
     }
     public function updateJurusan()
     {
+
+
         $this->form_validation->set_rules('nama_jurusan', 'nama', 'required');
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('flashs', 'Diupdate');
@@ -421,6 +453,8 @@ class Admin extends CI_Controller
     }
     public function deleteMasterJurusan($id)
     {
+
+
         $this->db->query("DELETE FROM tb_jurusan WHERE id_jurusan = $id");
         $this->session->set_flashdata('flash', 'Didelete');
         redirect('Admin/masterMapel');
@@ -429,6 +463,8 @@ class Admin extends CI_Controller
     // master kategori nilai
     public function tambahKategoriNilai()
     {
+
+
         $this->form_validation->set_rules('nama_kategori_nilai', 'nama', 'required');
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('flashs', 'Ditambahkan');
@@ -445,6 +481,8 @@ class Admin extends CI_Controller
     }
     public function updateKategoriNilai()
     {
+
+
         $this->form_validation->set_rules('nama_kategori_nilai', 'nama', 'required');
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('flashs', 'Diupdate');
@@ -460,6 +498,8 @@ class Admin extends CI_Controller
     }
     public function deleteMasterKategoriNilai($id)
     {
+
+
         $this->db->query("DELETE FROM tb_kategori_nilai WHERE id_kategori_nilai = $id");
         $this->session->set_flashdata('flash', 'Didelete');
         redirect('Admin/masterMapel');
@@ -469,6 +509,8 @@ class Admin extends CI_Controller
     // master mapel 
     public function tambahMapel()
     {
+
+
         $this->form_validation->set_rules('nama_mapel', 'nama', 'required');
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('flashs', 'Ditambahkan');
@@ -485,6 +527,8 @@ class Admin extends CI_Controller
     }
     public function updateMapel()
     {
+
+
         $this->form_validation->set_rules('nama_mapel', 'nama', 'required');
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('flashs', 'Diupdate');
@@ -500,6 +544,8 @@ class Admin extends CI_Controller
     }
     public function deleteMasterMapel($id)
     {
+
+
         $this->db->query("DELETE FROM tb_mapel WHERE id_mapel='$id'");
         $this->session->set_flashdata('flash', 'Didelete');
         redirect('Admin/masterMapel');
@@ -510,6 +556,8 @@ class Admin extends CI_Controller
     // master jadwal
     public function masterJadwalMapel()
     {
+
+
         $data['title'] = "Jadwal Mata Pelajaran";
         $data['get_data_guru'] = $this->Guru_model->getDataGuruJadwal();
         $data['get_data_mapel'] = $this->Guru_model->getDataMapelJadwal();
@@ -528,6 +576,8 @@ class Admin extends CI_Controller
     }
     public function tambahJadwalMapel()
     {
+
+
         $this->form_validation->set_rules('id_guru', 'nama guru', 'required');
         $this->form_validation->set_rules('id_kelas', 'nama kelas', 'required');
         $this->form_validation->set_rules('id_jurusan', 'nama jurusan', 'required');
@@ -559,6 +609,8 @@ class Admin extends CI_Controller
     }
     public function updateJadwalMapel()
     {
+
+
         $this->form_validation->set_rules('id_guru', 'nama guru', 'required');
         $this->form_validation->set_rules('id_kelas', 'nama kelas', 'required');
         $this->form_validation->set_rules('id_jurusan', 'nama jurusan', 'required');
@@ -590,6 +642,7 @@ class Admin extends CI_Controller
     }
     public function jadwalMapel($id)
     {
+
         $cek = $this->db->query("SELECT * FROM tb_absen")->num_rows();
         if ($cek > 0) {
             $this->db->query("DELETE tb_jadwal_mapel, tb_absen FROM tb_jadwal_mapel JOIN tb_absen ON tb_jadwal_mapel.id_jadwal_mapel = tb_absen.id_jadwal_mapel WHERE tb_jadwal_mapel.id_jadwal_mapel = $id AND tb_absen.id_jadwal_mapel = $id");
@@ -629,6 +682,8 @@ class Admin extends CI_Controller
     // penilaian siswa
     public function penilaianSiswa()
     {
+
+
         $data['title'] = "Penilaian Siswa";
         $data['get_all_siswa'] = $this->Guru_model->get_data_all_siswa();
         $data['get_all_mapel'] = $this->Guru_model->get_data_all_mapel();
@@ -683,34 +738,41 @@ class Admin extends CI_Controller
             redirect('Admin/penilaianSiswa');
         }
     }
-    public function updatePenilaianSiswa()
+    public function deletePenilaianSiswa($id)
     {
-        $id_penilaian_siswa = $this->input->post('id_penilaian_siswa');
-        $id_siswa = $this->input->post('id_siswa');
-        $id_mapel = $this->input->post('id_mapel');
-        $nilai = $this->input->post('nilai');
-        $id_kategori_nilai = $this->input->post('id_kategori_nilai');
-        $tanggal_penilaian = date('Y-m-d');
-
-        $arrUpdateNilai =
-            [
-                'id_penilaian_siswa' => $id_penilaian_siswa,
-                'id_siswa' => $id_siswa,
-                'id_mapel' => $id_mapel,
-                'nilai' => $nilai,
-                'id_kategori_nilai' => $id_kategori_nilai,
-                'tanggal_penilaian' => $tanggal_penilaian
-            ];
-        $checkDataNilaiUpdate = $this->Guru_model->checkdatanilaiupdate($id_siswa, $id_mapel);
-        if ($checkDataNilaiUpdate > 0) {
-            $this->session->set_flashdata('updates', 'ada');
-            redirect('Admin/penilaianSiswa');
-        } else {
-            $this->Guru_model->updateNilai($arrUpdateNilai, $id_penilaian_siswa);
-            $this->session->set_flashdata('update', 'Diubah');
-            redirect('Admin/penilaianSiswa');
-        }
+        $this->db->query("DELETE FROM tb_penilaian_siswa WHERE id_penilaian_siswa='$id'");
+        $this->session->set_flashdata('flash', 'Didelete');
+        redirect('Admin/penilaianSiswa');
     }
+    // public function updatePenilaianSiswa()
+    // {
+
+    //     $id_penilaian_siswa = $this->input->post('id_penilaian_siswa');
+    //     $id_siswa = $this->input->post('id_siswa');
+    //     $id_mapel = $this->input->post('id_mapel');
+    //     $nilai = $this->input->post('nilai');
+    //     $id_kategori_nilai = $this->input->post('id_kategori_nilai');
+    //     $tanggal_penilaian = date('Y-m-d');
+
+    //     $arrUpdateNilai =
+    //         [
+    //             'id_penilaian_siswa' => $id_penilaian_siswa,
+    //             'id_siswa' => $id_siswa,
+    //             'id_mapel' => $id_mapel,
+    //             'nilai' => $nilai,
+    //             'id_kategori_nilai' => $id_kategori_nilai,
+    //             'tanggal_penilaian' => $tanggal_penilaian
+    //         ];
+    //     $checkDataNilaiUpdate = $this->Guru_model->checkdatanilaiupdate($id_siswa, $id_mapel);
+    //     if ($checkDataNilaiUpdate > 0) {
+    //         $this->session->set_flashdata('updates', 'ada');
+    //         redirect('Admin/penilaianSiswa');
+    //     } else {
+    //         $this->Guru_model->updateNilai($arrUpdateNilai, $id_penilaian_siswa);
+    //         $this->session->set_flashdata('update', 'Diubah');
+    //         redirect('Admin/penilaianSiswa');
+    //     }
+    // }
     public function rekapNilaiSiswa()
     {
         $data['title'] = "Data Rekap Nilai Siswa";
@@ -784,6 +846,7 @@ class Admin extends CI_Controller
     // data absen siswa
     public function absenSiswa()
     {
+
         $data['title'] = "Absen Siswa";
         $data['data_absen_all_siswa'] = $this->Guru_model->data_absen_all_siswa();
         $data['filter_data_absen'] = $this->Guru_model->filter_data_absen();
