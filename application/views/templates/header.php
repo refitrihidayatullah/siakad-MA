@@ -126,7 +126,9 @@
             <?php } ?>
 
 
-            <?php if ($dt_sess == 2 || $dt_sess == 1) { ?>
+
+
+            <?php if ($dt_sess == 2) { ?>
                 <!-- Divider -->
                 <hr class="sidebar-divider">
                 <!-- Heading -->
@@ -145,6 +147,13 @@
                         </div>
                     </div>
                 </li>
+
+
+            <?php } ?>
+
+
+            <?php if ($dt_sess == 2 || $dt_sess == 1) { ?>
+                <!-- Divider -->
 
                 <!-- Divider -->
                 <hr class="sidebar-divider">

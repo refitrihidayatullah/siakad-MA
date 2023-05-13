@@ -29,10 +29,11 @@
                                 <td><?= $dt_absn_all_siswa['jam_jadwal_mulai']; ?>-<?= $dt_absn_all_siswa['jam_jadwal_akhir']; ?></td>
                                 <td><?= $dt_absn_all_siswa['waktu_absen']; ?></td>
                                 <td>
-                                    <?php if ($dt_absn_all_siswa['status_absen'] = 1) { ?>
+                                    <?php if ($dt_absn_all_siswa['status_absen'] == 1) { ?>
                                         <span class="badge badge-success ml-4">Hadir</span>
                                     <?php } else { ?>
                                         <span class="badge badge-danger ml-4">Tidak Hadir</span>
+                                        <span class="badge badge-info ml-4">#<?= $dt_absn_all_siswa['keterangan']; ?></span>
                                     <?php } ?>
                                 </td>
                             </tr>

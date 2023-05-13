@@ -50,9 +50,12 @@
                             </tr>
                         <?php } ?>
 
-
                     </tbody>
                 </table>
+
+                <div class="alert alert-light" role="alert">
+                    <button class="btn btn-success">nilai rata rata: <?= number_format($ratarataNilai->{'avg'}, 2, '.', '') ?></button>
+                </div>
             </div>
         </div>
     </div>

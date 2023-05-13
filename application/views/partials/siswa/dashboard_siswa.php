@@ -22,6 +22,18 @@
         </div>
     </div>
 <?php endif; ?>
+<?php if ($this->session->flashdata('flashss')) : ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Alasan keterlambatan <strong>Sudah</strong> <?= $this->session->flashdata('flashss'); ?>.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
 
 
 <div class="row">
@@ -135,6 +147,48 @@
                             </span>
                             <button class="btn btn-grey btn-sm" class="text">Absen Tidak Tersedia!</button>
                         </a>
+                        <?php
+                        $id_siswa = $this->session->userdata('id_siswa');
+                        $id_jadwal_mapel = $dt_jdwl_mpl['id_jadwal_mapel'];
+                        $cek_absen = $this->db->query("SELECT * FROM tb_absen WHERE id_siswa = $id_siswa AND id_jadwal_mapel = $id_jadwal_mapel")->num_rows();
+
+
+                        if ($cek_absen <= 0) { ?>
+                            <form action="<?= base_url(); ?>Admin/func_tidak_absen_siswa" method="POST">
+                                <input type="hidden" name="tanggal_absen" value="<?= $dt_jdwl_mpl['tanggal_jadwal']; ?>">
+                                <input type="hidden" name="waktu_absen" value="<?= date('H:i:s'); ?>">
+                                <input type="hidden" name="id_siswa" value="<?= $this->session->userdata('id_siswa'); ?>">
+                                <input type="hidden" name="id_jadwal_mapel" value="<?= $dt_jdwl_mpl['id_jadwal_mapel']; ?>">
+
+
+                                <div class="form-group">
+                                    <label for="alasanTerlambat">Alasan Terlambat</label>
+                                    <select class="form-control" name="alasanTerlambat" id="alasanTerlambat">
+                                        <option value="alpha">Alpha</option>
+                                        <option value="sakit">Sakit</option>
+                                        <option value="ijin">Ijin</option>
+                                        <option value="lupa presensi">Lupa Presensi</option>
+                                        <option value="jaringan buruk">Jaringan Buruk</option>
+                                        <option value="alasan lainnya">Alasan Lainnya</option>
+                                    </select>
+                                </div>
+
+                                <a href="#" class="btn btn-sm btn-danger btn-icon-split">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-info-circle"></i>
+                                    </span>
+                                    <button class="btn btn-danger btn-sm" class="text">Absen Terlambat!</button>
+                                </a>
+                            </form>
+                        <?php } else { ?>
+                            <a href="#" class="btn btn-sm bg-gray-100 btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-info-circle"></i>
+                                </span>
+                                <button class="btn btn-grey btn-sm" class="text">Anda Sudah Absen!</button>
+                            </a>
+                        <?php  } ?>
+
                     <?php } ?>
 
                 </div>
@@ -174,10 +228,11 @@
                                 <td><?= $dt_absn_siswaById['jam_jadwal_mulai']; ?>-<?= $dt_absn_siswaById['jam_jadwal_akhir']; ?></td>
                                 <td><?= $dt_absn_siswaById['waktu_absen']; ?></td>
                                 <td>
-                                    <?php if ($dt_absn_siswaById['status_absen'] = 1) { ?>
+                                    <?php if ($dt_absn_siswaById['status_absen'] == 1) { ?>
                                         <span class="badge badge-success ml-4">Hadir</span>
                                     <?php } else { ?>
                                         <span class="badge badge-danger ml-4">Tidak Hadir</span>
+                                        <span class="badge badge-info ml-4">#<?= $dt_absn_siswaById['keterangan']; ?></span>
                                     <?php } ?>
                                 </td>
                             </tr>

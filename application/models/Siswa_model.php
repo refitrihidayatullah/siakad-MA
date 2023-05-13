@@ -89,6 +89,11 @@ class Siswa_model extends CI_Model
     {
         $this->db->insert('tb_absen', $arr_absen);
     }
+    // tidak absen
+    function insertTidakAbsenSiswa($arr_absen)
+    {
+        $this->db->insert('tb_absen', $arr_absen);
+    }
     function getDataAbsenSiswa()
     {
         $id_siswa = $this->session->userdata('id_siswa');

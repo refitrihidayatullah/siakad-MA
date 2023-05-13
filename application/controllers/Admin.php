@@ -104,7 +104,7 @@ class Admin extends CI_Controller
 
             $data = array(
                 'nis_siswa' => $nis_siswa,
-                'password' => $password_siswa,
+                'password_siswa' => $password_siswa,
                 'nama_siswa' => $nama_siswa,
                 'email_siswa' => $email_siswa,
                 'jenis_kelamin_siswa' => $jenis_kelamin_siswa,
@@ -667,7 +667,8 @@ class Admin extends CI_Controller
             'tanggal_absen' => $tanggal_absen,
             'waktu_absen' => $waktu_absen,
             'id_siswa' => $id_siswa,
-            'id_jadwal_mapel' => $id_jadwal_mapel
+            'id_jadwal_mapel' => $id_jadwal_mapel,
+            'keterangan' => "hadir"
         ];
 
         if ($cek_absen > 0) {
@@ -676,6 +677,33 @@ class Admin extends CI_Controller
         } else {
             $this->Siswa_model->insertAbsenSiswa($arr_absen);
             $this->session->set_flashdata('flash', 'Absen');
+            redirect('Admin/index');
+        }
+    }
+    // siswatidak absen
+    public function func_tidak_absen_siswa()
+    {
+        $tanggal_absen = $this->input->post('tanggal_absen');
+        $waktu_absen = $this->input->post('waktu_absen');
+        $id_siswa = $this->input->post('id_siswa');
+        $id_jadwal_mapel = $this->input->post('id_jadwal_mapel');
+        $keterangan = $this->input->post('alasanTerlambat');
+        $cek_absen = $this->db->query("SELECT * FROM tb_absen WHERE id_siswa = $id_siswa AND id_jadwal_mapel = $id_jadwal_mapel")->num_rows();
+
+        $arr_absen = [
+            'status_absen' => 0,
+            'tanggal_absen' => $tanggal_absen,
+            'waktu_absen' => $waktu_absen,
+            'id_siswa' => $id_siswa,
+            'id_jadwal_mapel' => $id_jadwal_mapel,
+            'keterangan' => $keterangan
+        ];
+        if ($cek_absen > 0) {
+            $this->session->set_flashdata('flashs', 'Absen');
+            redirect('Admin/index');
+        } else {
+            $this->Siswa_model->insertTidakAbsenSiswa($arr_absen);
+            $this->session->set_flashdata('flashss', 'dikirim, segera hubungi administrasi untuk diproses!');
             redirect('Admin/index');
         }
     }
@@ -786,6 +814,7 @@ class Admin extends CI_Controller
         $data['title'] = "Lihat Rekap Nilai Siswa";
         $data['rekap_nilai'] = $this->Siswa_model->lihat_rekap_nilai_byId($id);
         $data['data_siswa'] = $this->Siswa_model->get_rekap_nilai_siswa_ById($id);
+        $data['ratarataNilai'] = $this->Siswa_model->get_avg_nilai_siswa_ById($id);
 
         // var_dump($data['data_siswa']);
         // var_dump($data['rekap_nilai']);
@@ -855,6 +884,18 @@ class Admin extends CI_Controller
 
         $this->load->view('templates/header', $data);
         $this->load->view('partials/admin/absen/absen_all_siswa', $data);
+        $this->load->view('templates/footer');
+    }
+    public function absenSiswaTidakHadir()
+    {
+        $data['title'] = "Absen Siswa Tidak Hadir";
+
+
+        var_dump($data['data_lengkap_siswa'] = $this->Guru_model->data_lengkap_siswa());
+        die;
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('partials/admin/absen/absen_tidak_hadir', $data);
         $this->load->view('templates/footer');
     }
 }

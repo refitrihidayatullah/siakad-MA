@@ -228,6 +228,14 @@ class Guru_model extends CI_Model
         $sql = "SELECT * FROM tb_absen LEFT JOIN tb_siswa ON tb_absen.id_siswa = tb_siswa.id_siswa LEFT JOIN tb_jadwal_mapel ON tb_absen.id_jadwal_mapel = tb_jadwal_mapel.id_jadwal_mapel LEFT JOIN tb_kelas ON tb_jadwal_mapel.id_kelas = tb_kelas.id_kelas LEFT JOIN tb_jurusan ON tb_jadwal_mapel.id_jurusan = tb_jurusan.id_jurusan GROUP BY tb_absen.id_siswa;";
         return $this->db->query($sql)->result_array();
     }
+    public function data_lengkap_siswa()
+    {
+        $sql = "SELECT * FROM tb_siswa LEFT JOIN 
+                             tb_kelas ON tb_siswa.id_kelas = tb_kelas.id_kelas LEFT JOIN
+                             tb_jurusan ON tb_siswa.id_jurusan = tb_jurusan.id_jurusan";
+
+        return $this->db->query($sql)->result_array();
+    }
     public function lihat_absen_siswa_byId($id)
     {
         $sql = "SELECT COUNT(id_siswa) AS total FROM tb_absen WHERE id_siswa = $id";
